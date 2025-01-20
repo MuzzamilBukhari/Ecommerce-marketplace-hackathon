@@ -21,17 +21,20 @@ export interface Product {
   image: string;
   sizes: string[];
   isNew: boolean;
+  tags: string[];
+  stock: number;
+  _createdAt: string;
 }
 
 interface ProductType {
-  products: Product[] | undefined;
-  setProducts: Dispatch<SetStateAction<Product[] | undefined>>;
+  products: Product[];
+  setProducts: Dispatch<SetStateAction<Product[]>>;
 }
 
 const ProductsContext = createContext<ProductType | undefined>(undefined);
 
 export const ProductsProvider = ({ children }: { children: ReactNode }) => {
-  const [products, setProducts] = useState<Product[] | undefined>();
+  const [products, setProducts] = useState<Product[]>([]);
   return (
     <ProductsContext.Provider value={{ products, setProducts }}>
       {children}

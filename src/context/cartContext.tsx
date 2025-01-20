@@ -33,8 +33,11 @@ const CartItemContext = createContext<CartItemType | undefined>(undefined);
 
 export const CartItemProvier = ({ children }: { children: ReactNode }) => {
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
-    const storedCart = localStorage.getItem("cart");
-    return storedCart ? JSON.parse(storedCart) : [];
+    if (typeof window !== "undefined") {
+      const storedCart = localStorage.getItem("cart");
+      return storedCart ? JSON.parse(storedCart) : [];
+    }
+    return [];
   });
   useEffect(() => {
     localStorage.setItem("cart", JSON.stringify(cartItems));

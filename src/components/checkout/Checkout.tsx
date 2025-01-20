@@ -1,153 +1,90 @@
 "use client";
 import React, { useState } from "react";
+import { InputField } from "@/components/ui/Input";
+import { Button } from "@/components/ui/Button";
+import { Checkbox } from "@/components/ui/CheckBox";
 
 const Checkout = () => {
   const [billingSameAsShipping, setBillingSameAsShipping] = useState(true);
 
   return (
-    <div className="min-h-screen py-10 text-[#272343]">
-      <div className="max-w-4xl mx-auto bg-white p-8 rounded-lg shadow-lg">
-        <h2 className="text-2xl font-semibold mb-4 text-[#272343] ">Contact</h2>
-        <div className="mb-6">
-          <label className="block text-sm font-medium mb-2 ">Log in</label>
-          <input
-            type="text"
-            placeholder="Email or mobile phone number"
-            className="w-full border border-[#272343] rounded-md p-2 focus:ring-[#272343]"
-          />
-          <div className="mt-2 flex items-center space-x-2">
-            <input type="checkbox" id="emailOffers" className="rounded" />
-            <label htmlFor="emailOffers" className="text-sm text-[#272343]">
-              Email me with news and offers
-            </label>
-          </div>
-        </div>
+    <div className="min-h-screen py-10 bg-gradient-to-b from-gray-100 to-gray-200 text-gray-800">
+      <div className="max-w-4xl mx-auto bg-white p-8 rounded-2xl shadow-xl">
+        {/* Contact Section */}
+        <h2 className="text-3xl font-bold mb-6 text-gray-800">
+          Contact Information
+        </h2>
+        <InputField
+          label="Log in"
+          type="text"
+          placeholder="Email or mobile phone number"
+        />
+        <Checkbox id="emailOffers" label="Email me with news and offers" />
 
-        <h2 className="text-2xl font-semibold mb-4 text-[#272343]">Delivery</h2>
+        {/* Delivery Section */}
+        <h2 className="text-3xl font-bold mt-10 mb-6 text-gray-800">
+          Delivery Details
+        </h2>
         <form className="space-y-4">
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                First Name
-              </label>
-              <input
-                type="text"
-                className="w-full border border-[#272343] rounded-md p-2"
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium mb-2">
-                Last Name
-              </label>
-              <input
-                type="text"
-                className="w-full border border-[#272343] rounded-md p-2 "
-              />
-            </div>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <InputField label="First Name" type="text" />
+            <InputField label="Last Name" type="text" />
           </div>
-          <label className="block text-sm font-medium mb-2">Address</label>
-          <input
-            type="text"
-            className="w-full border border-[#272343] rounded-md p-2 "
-          />
-          <label className="block text-sm font-medium mb-2">
-            Apartment, suite, etc. (optional)
-          </label>
-          <input
-            type="text"
-            className="w-full border border-[#272343] rounded-md p-2"
-          />
-          <label className="block text-sm font-medium mb-2">City</label>
-          <input
-            type="text"
-            className="w-full border border-[#272343] rounded-md p-2 "
-          />
-          <label className="block text-sm font-medium mb-2">
-            Postal Code (optional)
-          </label>
-          <input
-            type="text"
-            className="w-full border border-[#272343] rounded-md p-2"
-          />
-          <label className="block text-sm font-medium mb-2">Phone</label>
-          <input
-            type="text"
-            className="w-full border border-[#272343] rounded-md p-2"
-          />
+          <InputField label="Address" type="text" />
+          <InputField label="Apartment, suite, etc. (optional)" type="text" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <InputField label="City" type="text" />
+            <InputField label="Postal Code (optional)" type="text" />
+          </div>
+          <InputField label="Phone" type="text" />
         </form>
-        <div className="mt-4 flex items-center space-x-2">
-          <input type="checkbox" id="saveInfo" className="rounded" />
-          <label htmlFor="saveInfo" className="text-sm">
-            Save this information for next time
-          </label>
-        </div>
-        <div className="mt-4 flex items-center space-x-2">
-          <input type="checkbox" id="textOffers" className="rounded" />
-          <label htmlFor="textOffers" className="text-sm">
-            Text me with news and offers
-          </label>
+        <Checkbox id="saveInfo" label="Save this information for next time" />
+
+        {/* Shipping Method Section */}
+        <h2 className="text-3xl font-bold mt-10 mb-6 text-gray-800">
+          Shipping Method
+        </h2>
+        <div className="flex items-center justify-between p-4 border rounded-lg bg-gray-50 hover:shadow-md transition-all">
+          <div className="font-medium">Standard Delivery</div>
+          <div className="font-semibold">Rs 200.00</div>
         </div>
 
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Shipping Method</h2>
-        <div className="space-y-4">
-          <div className="flex items-center justify-between p-4 border rounded-md">
-            <div>Standard</div>
-            <div className="font-semibold">Rs 200.00</div>
-          </div>
-        </div>
-
-        {/* Payment */}
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Payment</h2>
-        <p className="text-sm mb-2">
+        {/* Payment Section */}
+        <h2 className="text-3xl font-bold mt-10 mb-6 text-gray-800">
+          Payment Options
+        </h2>
+        <p className="text-sm mb-4 text-gray-600">
           All transactions are secure and encrypted.
         </p>
         <div className="space-y-4">
-          <div>
-            <label className="block text-sm font-medium mb-2">
-              Cash on Delivery (COD)
-            </label>
-          </div>
-          <div>
-            <label className="block text-sm font-medium mb-2 text-bold">
-              Bank Deposit
-            </label>
-            <div className="bg-gray-100 p-4 rounded-md text-sm space-y-1">
-              <p>Bank Name: HBL</p>
-              <p>Account Title: Comforty</p>
-              <p>Account Number: 12345678910</p>
-              <p>IBAN Number: PK12345678910</p>
-            </div>
+          <Checkbox id="cod" label="Cash on Delivery (COD)" />
+          <div className="bg-gray-100 p-4 rounded-lg shadow-md">
+            <p className="font-medium">Bank Details</p>
+            <p className="text-sm mt-2 text-gray-600">Bank Name: HBL</p>
+            <p className="text-sm text-gray-600">Account Title: Bandge</p>
+            <p className="text-sm text-gray-600">Account Number: 12345678910</p>
+            <p className="text-sm text-gray-600">IBAN Number: PK12345678910</p>
           </div>
         </div>
-        <h2 className="text-2xl font-semibold mt-8 mb-4">Billing Address</h2>
-        <div className="space-y-4">
-          <div className="flex items-center space-x-2">
-            <input
-              type="checkbox"
-              id="sameAsShipping"
-              checked={billingSameAsShipping}
-              onChange={() => setBillingSameAsShipping(!billingSameAsShipping)}
-              className="rounded text-[#029FAE]"
-            />
-            <label htmlFor="sameAsShipping" className="text-sm">
-              Same as shipping address
-            </label>
-          </div>
-          {!billingSameAsShipping && (
-            <form className="space-y-4">
-              <label className="block text-sm font-medium mb-2">
-                Billing Address
-              </label>
-              <input
-                type="text"
-                className="w-full border border-[#272343] rounded-md p-2"
-              />
-            </form>
-          )}
-        </div>
-        <button className="mt-8 w-full bg-[#029FAE] text-white font-semibold py-2 rounded-md hover:bg-[#029FAE]/90">
-          Complete Order
-        </button>
+
+        {/* Billing Address Section */}
+        <h2 className="text-3xl font-bold mt-10 mb-6 text-gray-800">
+          Billing Address
+        </h2>
+        <Checkbox
+          id="sameAsShipping"
+          label="Same as shipping address"
+          checked={billingSameAsShipping}
+          onChange={() => setBillingSameAsShipping(!billingSameAsShipping)}
+        />
+        {!billingSameAsShipping && (
+          <form className="space-y-4 mt-4">
+            <InputField label="Billing Address" type="text" />
+          </form>
+        )}
+
+        {/* Complete Order Button */}
+        <Button label="Complete Order" />
       </div>
     </div>
   );

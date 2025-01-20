@@ -8,6 +8,8 @@ import { useCategories } from "@/context/categoryContext";
 import { Product, useProducts } from "@/context/productsContext";
 import { stringToSlug } from "@/myFunctions/stringToSlug";
 import { client } from "@/sanity/lib/client";
+import FilterComponent from "@/components/product-list-page/FilterComponent";
+import { FilterState } from "@/types/FilterTypes";
 
 const ShopPage = () => {
   const { categories, setCategories } = useCategories();
@@ -19,11 +21,14 @@ const ShopPage = () => {
       setLoading(true);
       try {
         let query = await client.fetch(
-          `*[_type == "products"]{_id, name, description, category, price, discountPercent, colors , 'image':image.asset->url, sizes, isNew}`
+          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, colors , 'image':image.asset->url, sizes, isNew}`
         );
 
         const productsArr: Product[] = query.map((product: any) => {
           product.slug = stringToSlug(product.name);
+          product.tags = [];
+          product.stock = 20;
+
           return product;
         });
         console.log(productsArr);
@@ -40,7 +45,38 @@ const ShopPage = () => {
         setLoading(false);
       }
     })();
-  });
+  }, []);
+
+  const handleFilterChange = (newFilters: FilterState) => {
+    let filteredProducts = [...products];
+
+    filteredProducts = filteredProducts.filter(
+      (product) =>
+        product.price >= newFilters.priceRange.min &&
+        product.price <= newFilters.priceRange.max
+    );
+    if (newFilters.inStock) {
+      filteredProducts = filteredProducts.filter((product) => product);
+    }
+
+    filteredProducts.sort((a, b) => {
+      switch (newFilters.sortBy) {
+        case "priceLowToHigh":
+          return a.price - b.price;
+        case "priceHighToLow":
+          return b.price - a.price;
+        case "newest":
+          return (
+            new Date(b._createdAt).getTime() - new Date(a._createdAt).getTime()
+          );
+        case "popularity":
+        default:
+          // Implement popularity sorting logic baad me
+          return 0;
+      }
+    });
+    setProducts(filteredProducts);
+  };
 
   return (
     <div className="pt-40 bg-[#fafafa] text-black">
@@ -81,7 +117,7 @@ const ShopPage = () => {
             {/* filtered area */}
             <div className="flex items-center md:px-28 py-6 mt-16 gap-8 md:gap-0 justify-between font-semibold text-myGry flex-col md:flex-row bg-white ">
               <div className="">Showing all {products?.length} results</div>
-              <div className="flex justify-center items-center gap-7">
+              {/* <div className="flex justify-center items-center gap-7">
                 Views:
                 <Image
                   src={"/icons/view1.png"}
@@ -95,8 +131,14 @@ const ShopPage = () => {
                   width={14}
                   height={14}
                 />
-              </div>
-              <div className="flex justify-center items-center gap-4">
+              </div> */}
+
+              {/* Filter component */}
+              <FilterComponent
+                onFilterChange={handleFilterChange}
+                products={products}
+              />
+              {/* <div className="flex justify-center items-center gap-4">
                 <button className="flex justify-center items-center gap-2 font-normal border border-gray-300 rounded-lg px-6 py-3">
                   Popularity
                   <Image
@@ -109,7 +151,7 @@ const ShopPage = () => {
                 <button className="bg-myBlue rounded-lg px-6 py-3 text-white">
                   Filter
                 </button>
-              </div>
+              </div> */}
             </div>
             {/* All products */}
             <AllProducts />

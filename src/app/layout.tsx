@@ -5,6 +5,7 @@ import { Header, Navbar, Footer } from "@/components/";
 import { ProductsProvider } from "@/context/productsContext";
 import { CategoryProvider } from "@/context/categoryContext";
 import { CartItemProvier } from "@/context/cartContext";
+import { WishlistProvider } from "@/context/wishlistContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -24,12 +25,14 @@ export default function RootLayout({
         <CartItemProvier>
           <CategoryProvider>
             <ProductsProvider>
-              <div className="w-full fixed top-0 left-0 z-10">
-                <Navbar />
-                {/* <Header /> */}
-              </div>
-              {children}
-              <Footer />
+              <WishlistProvider>
+                <div className="w-full fixed top-0 left-0 z-10">
+                  <Header />
+                  <Navbar />
+                </div>
+                {children}
+                <Footer />
+              </WishlistProvider>
             </ProductsProvider>
           </CategoryProvider>
         </CartItemProvier>

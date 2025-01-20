@@ -1,4 +1,3 @@
-import { stringToSlug } from "@/myFunctions/stringToSlug";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -36,7 +35,7 @@ const ProductCard = ({
           />
         </div>
         <div className="flex justify-center items-center flex-col gap-3 mt-3 font-semibold">
-          <h3 className="">{name}</h3>
+          <h3 className="max-w-[200px] text-center">{name}</h3>
           <h4 className="text-[#737373]">{category.toUpperCase()}</h4>
           <div className="flex gap-2">
             <span className="text-[#bdbdbd] line-through">{price}</span>

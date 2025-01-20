@@ -13,20 +13,24 @@ import { Product, useProducts } from "@/context/productsContext";
 import { stringToSlug } from "@/myFunctions/stringToSlug";
 import { client } from "@/sanity/lib/client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const { products, setProducts } = useProducts();
   const { setCategories } = useCategories();
+  const [isClient, setIsClient] = useState(false);
   useEffect(() => {
+    setIsClient(true);
     (async function () {
       try {
         let query = await client.fetch(
-          `*[_type == "products"]{_id, name, description, category, price, discountPercent, colors , 'image':image.asset->url, sizes, isNew}`
+          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, colors , 'image':image.asset->url, sizes, isNew}`
         );
 
         const productsArr: Product[] = query.map((product: any) => {
           product.slug = stringToSlug(product.name);
+          product.tags = [];
+          product.stocks = 20;
           return product;
         });
         console.log(productsArr);
@@ -41,7 +45,10 @@ export default function Home() {
         throw new Error("Error in fetch");
       }
     })();
-  });
+  }, []);
+  if (!isClient) {
+    return <div>loading</div>;
+  }
   return (
     <div className="bg-white">
       <HeroSection />

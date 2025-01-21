@@ -67,17 +67,20 @@ const SearchPage = () => {
       <div className="min-h-screen p-8">
         <div className="max-w-7xl mx-auto">
           <h1 className="text-2xl font-bold mb-6">
-            Search Results for "{query}"
+            Search Results for &quot;{query}&quot;
           </h1>
 
           {searchResults.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-500">No products found for "{query}"</p>
+              <p className="text-gray-500">
+                No products found for &quot;{query}&quot;
+              </p>
             </div>
           ) : (
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
               {searchResults.map((product) => (
                 <ProductCard
+                  key={product._id}
                   name={product.name}
                   slug={product.slug}
                   category={product.category}

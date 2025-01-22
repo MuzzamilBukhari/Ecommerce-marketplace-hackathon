@@ -2,7 +2,8 @@
 import Checkout from "@/components/checkout/Checkout";
 import Link from "next/link";
 import Image from "next/image";
-import { CartItem, useCart } from "@/context/cartContext";
+import { useCart } from "@/context/cartContext";
+import { CartItem } from "@/types/cartType";
 import CartCard from "@/components/cart/CartCard";
 
 export default function CheckoutPage() {
@@ -67,22 +68,12 @@ export default function CheckoutPage() {
                       <span className="font-medium">${cartTotal}</span>
                     </div>
                   </div>
-                  <button className="w-full rounded-[30px] mt-5 px-4 py-3 text-white bg-myBlue hover:scale-105 duration-300">
-                    Member Checkout
-                  </button>
                 </div>
               )}
             </div>
           </div>
         </div>
-        {/* yaha extra kam */}
       </div>
     </section>
-    // <div className="container mx-auto p-4  min-h-screen">
-    //   <div className="max-w-2xl mx-auto p-8 shadow-lg rounded-lg">
-    //     <h1 className="text-2xl font-bold mb-6 text-[#029FAE]">Checkout</h1>
-    //     <Checkout />
-    //   </div>
-    // </div>
   );
 }

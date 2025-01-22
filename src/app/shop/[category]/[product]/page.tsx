@@ -1,21 +1,52 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { useProducts } from "@/context/productsContext";
+import { Product, useProducts } from "@/context/productsContext";
 import { useWishlist } from "@/context/wishlistContext";
 import { useCart } from "@/context/cartContext";
 import { FaHeart } from "react-icons/fa";
 import { IoMdCart } from "react-icons/io";
 import { Payment, ProductBestSeller } from "@/components";
+import { stringToSlug } from "@/myFunctions/stringToSlug";
+import { client } from "@/sanity/lib/client";
+import { useCategories } from "@/context/categoryContext";
+import { discountedPrice } from "@/myFunctions/discountedPrice";
 
 const ProductPage = ({ params }: { params: { product: string } }) => {
+  const { products, setProducts } = useProducts();
+  const { setCategories } = useCategories();
   const productSlug = params.product;
-  const { products } = useProducts();
   const { wishlist, addToWishlist, removeFromWishlist } = useWishlist();
   const { handleCart } = useCart();
   const product = products?.find((product) => product.slug === productSlug);
 
+  useEffect(() => {
+    (async function () {
+      try {
+        let query = await client.fetch(
+          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, colors , 'image':image.asset->url, sizes, isNew}`
+        );
+
+        const productsArr: Product[] = query.map((product: any) => {
+          product.slug = stringToSlug(product.name);
+          product.tags = [];
+          product.stocks = 20;
+          return product;
+        });
+        console.log(productsArr);
+
+        setProducts(productsArr);
+        query = await client.fetch(
+          `*[_type == 'category']{_id, name, 'image':image.asset->url, productsCount}`
+        );
+        console.log(query);
+        setCategories(query);
+      } catch (error) {
+        throw new Error("Error in fetch");
+      }
+    })();
+  }, []);
   const isProductInWishlist = wishlist.some(
     (item: any) => item.slug === productSlug
   );
@@ -62,7 +93,7 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
             </div>
             {/* Price */}
             <span className="title-font font-bold text-2xl text-myHeading">
-              ${(product.discountPercent / 100) * product.price}
+              ${discountedPrice(product.price, product.discountPercent)}
             </span>
             {/* Availability */}
             <div className="font-semibold mt-3">

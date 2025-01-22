@@ -7,12 +7,6 @@ import Image from "next/image";
 import { Suspense } from "react";
 import SearchParams from "@/components/SearchParams";
 const SearchPage = () => {
-  // const searchParams = useSearchParams();
-  // const query = searchParams.get("q");
-  // const [searchResults, setSearchResults] = useState<Product[]>([]);
-  // const [loading, setLoading] = useState<boolean>(true);
-  // const { products } = useProducts();
-
   return (
     <div className="pt-40 bg-[#fafafa] text-black">
       {/* Search header */}

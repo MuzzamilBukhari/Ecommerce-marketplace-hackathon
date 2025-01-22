@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect, useRef, ChangeEvent } from "react";
 import { Search, X } from "lucide-react";
-import { useRouter, useSearchParams } from "next/navigation";
+import { useRouter } from "next/navigation";
 import { useProducts } from "@/context/productsContext";
 
 export interface SearchSuggestion {

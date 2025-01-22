@@ -1,6 +1,7 @@
 "use client";
 import CartCard from "@/components/cart/CartCard";
-import { CartItem, useCart } from "@/context/cartContext";
+import { useCart } from "@/context/cartContext";
+import { CartItem } from "@/types/cartType";
 import Image from "next/image";
 import Link from "next/link";
 

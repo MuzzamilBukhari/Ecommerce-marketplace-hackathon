@@ -45,7 +45,12 @@ export default defineType({
       type: "number",
     },
     {
-      name: "new",
+      name: "stock",
+      title: "Product Stock",
+      type: "number",
+    },
+    {
+      name: "isNew",
       type: "boolean",
       title: "New",
     },

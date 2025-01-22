@@ -92,7 +92,7 @@ const FilterComponent: React.FC<FilterProps> = ({
     return (
       <div className="flex justify-center items-center gap-4">
         <button className="flex justify-center items-center gap-2 font-normal border border-gray-300 rounded-lg px-6 py-3">
-          Loading...
+          popularity
         </button>
         <button className="bg-myBlue rounded-lg px-6 py-3 text-white">
           Filter

@@ -1,3 +1,4 @@
+import { discountedPrice } from "@/myFunctions/discountedPrice";
 import Image from "next/image";
 import Link from "next/link";
 import React from "react";
@@ -38,10 +39,17 @@ const ProductCard = ({
           <h3 className="max-w-[200px] text-center">{name}</h3>
           <h4 className="text-[#737373]">{category.toUpperCase()}</h4>
           <div className="flex gap-2">
-            <span className="text-[#bdbdbd] line-through">{price}</span>
-            <span className="text-[#23856D]">
-              {(discountPercent / 100) * price}
-            </span>
+            {discountPercent ? (
+              <>
+                {" "}
+                <span className="text-[#bdbdbd] line-through">{price}</span>
+                <span className="text-[#23856D]">
+                  {discountedPrice(price, discountPercent)}
+                </span>
+              </>
+            ) : (
+              <span className="text-[#23856D]">{price}</span>
+            )}
           </div>
 
           <div className="flex gap-[5px]">

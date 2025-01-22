@@ -46,9 +46,9 @@ export default function Home() {
       }
     })();
   }, []);
-  if (!isClient) {
-    return <div>loading</div>;
-  }
+  // if (!isClient) {
+  //   return <div>loading</div>;
+  // }
   return (
     <div className="bg-white">
       <HeroSection />

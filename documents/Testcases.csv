@@ -1,0 +1,60 @@
+CSV-Based Testing Report,,,,,,,
+Test Case ID,Description,Expected Result,Actual Result,Status,Severity,Remarks,
+TC00 1,Test navigation links,All links navigate correctly,All links function as intended,"P
+a s s",Lo w,None,
+TC00 2,Verify product listing display,Products display correctly,Products display correctly,"P
+a s
+s","M
+ed iu
+m",None,
+TC00 3,Test shopping cart functionality,Items add/remove/upd ate correctly,Cart functions as expected,"P
+a
+s s",Hi gh,None,
+TC00 4,Test wishlist functionality,Items add/remove correctly,Items add/remove correctly,"P
+a s
+s",Medium,None,
+TC00 5,Test Filter and SearchBar functionlity,Filter and SearchBar are working ,Filter and SearchBar are working,"P
+a
+s s","M
+ed
+ium",None,
+TC00 6,"Analyze performance
+metrics","Performance
+score ? 90",Score: 80,"F
+a il",Hi gh,Optimization needed,
+TC00 7,Check accessibility features,"Accessibility
+score ? 90",Score: 100,"P
+a
+s s","M
+ed
+iu m",Ensure ongoing compliance,
+TC00 8,Evaluate SEO metrics,SEO score ? 90,Score: 75,"F
+a il","M
+ed iu m",Implement recommended SEO practices,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,
+,,,,,,,

@@ -5,16 +5,20 @@ const NavLink = ({
   name,
   slug,
   onclick,
+  isActive,
 }: {
   name: string;
   slug: string;
-  onclick: () => void;
+  onclick?: () => void;
+  isActive?: boolean;
 }) => {
   return (
     <Link
       href={slug}
       onClick={onclick}
-      className="text-base font-semibold hover:underline text-myGry"
+      className={`text-base hover:text-myHeading hover:underline ${
+        isActive ? "text-myHeading underline" : "text-myWht"
+      }`}
     >
       {name}
     </Link>

@@ -2,7 +2,8 @@
 
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
-import { Product, useProducts } from "@/context/productsContext";
+import { useProducts } from "@/context/productsContext";
+import { Product } from "@/types/productType";
 import { useWishlist } from "@/context/wishlistContext";
 import { useCart } from "@/context/cartContext";
 import { FaHeart } from "react-icons/fa";
@@ -12,6 +13,7 @@ import { stringToSlug } from "@/myFunctions/stringToSlug";
 import { client } from "@/sanity/lib/client";
 import { useCategories } from "@/context/categoryContext";
 import { discountedPrice } from "@/myFunctions/discountedPrice";
+import Loader from "@/components/ui/Loader";
 
 const ProductPage = ({ params }: { params: { product: string } }) => {
   const { products, setProducts } = useProducts();
@@ -25,13 +27,11 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
     (async function () {
       try {
         let query = await client.fetch(
-          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, colors , 'image':image.asset->url, sizes, isNew}`
+          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, 'image':image.asset->url, sizes, bestSelling}`
         );
 
         const productsArr: Product[] = query.map((product: any) => {
           product.slug = stringToSlug(product.name);
-          product.tags = [];
-          product.stocks = 20;
           return product;
         });
         console.log(productsArr);
@@ -46,7 +46,7 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
         throw new Error("Error in fetch");
       }
     })();
-  }, []);
+  }, [setCategories, setProducts]);
   const isProductInWishlist = wishlist.some(
     (item: any) => item.slug === productSlug
   );
@@ -75,7 +75,7 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
               {product.description}
             </p>
             {/* Rating & Reviews */}
-            <div className="flex mb-4">
+            <div className="flex my-4">
               <span className="flex items-center gap-2">
                 {Array.from({ length: 5 }).map((_, index) => (
                   <Image
@@ -98,24 +98,31 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
             {/* Availability */}
             <div className="font-semibold mt-3">
               <span className="text-myGry">Availability : </span>
-              <span className="text-myBlue">34</span>
+              <span className="text-myBlk">34</span>
             </div>
-            {/* Colors */}
+            {/* Sizes */}
             <div className="flex mt-6 items-center pb-5 mb-5 gap-3">
-              {product.colors &&
-                product.colors.map((color, i) => (
-                  <div key={i} className={`${color} w-7 h-7 rounded-[50%]`} />
+              {product.sizes &&
+                product.sizes.map((size, i) => (
+                  <div
+                    key={i}
+                    className={`w-8 h-8 flex justify-center items-center rounded-[50%] bg-myGry text-myWht p-2 `}
+                  >
+                    {size}
+                  </div>
                 ))}
             </div>
 
             <div className="flex items-center gap-5 mt-5">
               <button
                 onClick={handleWishlist}
-                className="flex items-center gap-2 text-white bg-[#272343] font-semibold py-2 px-6 focus:outline-none hover:scale-105 duration-200 rounded"
+                className={`flex items-center gap-2 ${
+                  isWishlisted ? "text-myHeading" : "text-white"
+                } bg-myGry font-semibold py-2 px-6 focus:outline-none hover:scale-105 duration-200 rounded`}
               >
                 <FaHeart
                   className={`w-6 h-6 transition-transform duration-200 ${
-                    isWishlisted ? "text-red-500 scale-125" : "text-white"
+                    isWishlisted ? "text-myHeading" : "text-white"
                   }`}
                 />
                 {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
@@ -123,7 +130,7 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
 
               <button
                 onClick={() => handleCart(product)}
-                className="flex items-center gap-2 text-[#272343] bg-white border-2 border-[#272343] font-semibold py-2 px-6 focus:outline-none hover:scale-105 duration-200 rounded"
+                className="flex items-center gap-2 text-myGry bg-white border-2 border-myGry font-semibold py-2 px-6 focus:outline-none hover:scale-105 duration-200 rounded"
               >
                 <IoMdCart className="w-6 h-6" />
                 Add to Cart
@@ -136,7 +143,7 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
       </div>
     </section>
   ) : (
-    <div>Loading...</div>
+    <Loader />
   );
 };
 

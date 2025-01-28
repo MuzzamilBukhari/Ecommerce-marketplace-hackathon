@@ -1,5 +1,5 @@
 import React from "react";
-import PostCard from "../PostCard";
+import PostCard from "../posts/PostCard";
 
 const FeaturedPosts = () => {
   const posts = [
@@ -35,11 +35,9 @@ const FeaturedPosts = () => {
     <section className="mt-20">
       <div className="container px-5 py-20 mx-auto">
         <div className="items-center text-center text-black space-y-2">
-          <h3 className="text-xl font-semibold text-[#23A6F0]">
-            Practice Advice
-          </h3>
-          <h1 className="text-4xl font-bold">Featured Posts</h1>
-          <h6 className="text-[#737373]">
+          <h3 className="text-xl font-semibold text-myGry">Practice Advice</h3>
+          <h1 className="text-4xl font-bold text-myHeading">Featured Posts</h1>
+          <h6 className="text-myBlk">
             Problems trying to resolve the conflict between <br />
             The two major realms of Classical Physics: Newtonian mechanics
           </h6>

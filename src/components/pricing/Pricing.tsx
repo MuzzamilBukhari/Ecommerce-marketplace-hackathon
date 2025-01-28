@@ -2,6 +2,8 @@
 import Link from "next/link";
 import PricingCard from "./PricingCard";
 import { useState } from "react";
+import PageHeader from "../ui/PageHeader";
+import TrialSection from "../ui/TrialSection";
 
 // Pricing Component
 const Pricing = () => {
@@ -47,19 +49,18 @@ const Pricing = () => {
   return (
     <section className="flex flex-col items-center pt-20 bg-gray-50 text-[#272343] ">
       {/* Header */}
-      <div className="text-center mt-20 mb-10">
-        <h2 className="text-xl font-semibold text-gray-500">PRICING</h2>
-        <h1 className="text-4xl font-bold text-[#272343]">Simple Pricing</h1>
-        <div className="mt-4">
-          <Link href="/">Home</Link> / <Link href="/pricing">Pricing</Link>
-        </div>
-      </div>
+      <PageHeader
+        first={"Pricing"}
+        second={"Simple Pricing"}
+        tagline={""}
+        pageName={"Pricing"}
+      />
 
       {/* Pricing Toggle */}
       <div className="flex items-center gap-4 my-6">
         <span className="font-semibold">Monthly</span>
         <div
-          className="w-12 h-6 rounded-full bg-[#272343] flex items-center cursor-pointer"
+          className="w-12 h-6 rounded-full bg-myHeading flex items-center cursor-pointer"
           onClick={togglePricing}
         >
           <div
@@ -85,15 +86,7 @@ const Pricing = () => {
       </div>
 
       {/* CTA */}
-      <div className="mt-12 text-center mb-10">
-        <h2 className="text-2xl font-bold">Start your 14-day free trial</h2>
-        <p className="text-gray-500 mt-2">
-          No credit card required. Cancel anytime.
-        </p>
-        <button className="mt-4 px-8 py-4 bg-[#272343]  text-white font-bold rounded-lg shadow transition-transform  hover:scale-105">
-          Try for Free
-        </button>
-      </div>
+      <TrialSection />
     </section>
   );
 };

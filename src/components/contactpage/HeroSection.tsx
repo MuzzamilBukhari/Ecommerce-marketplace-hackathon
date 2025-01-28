@@ -15,7 +15,7 @@ const HeroSection = () => {
     >
       <div className="container mx-auto flex px-12  lg:px-24 py-24 md:flex-row flex-col items-center justify-center">
         <div className="lg:flex-grow md:w-1/2 md:pl-16 flex flex-col md:items-start md:text-left mb-16 sm:mb-0 items-center text-center gap-6">
-          <h3 className="font-semibold">CONTACT US</h3>
+          <h3 className="font-semibold text-myGry">CONTACT US</h3>
           <h1 className="title-font text-4xl sm:text-5xl font-bold mt-2 ">
             Get in touch <br /> today
           </h1>
@@ -31,7 +31,7 @@ const HeroSection = () => {
             >
               <FaFacebook
                 size={30}
-                className="hover:text-myHeading text-blue-800 transition-all"
+                className="hover:text-myHeading text-myGry transition-all"
               />
             </a>
             <a
@@ -41,7 +41,7 @@ const HeroSection = () => {
             >
               <FaInstagram
                 size={30}
-                className="hover:text-myHeading text-pink-500 transition-all"
+                className="hover:text-myHeading text-myGry transition-all"
               />
             </a>
             <a
@@ -51,7 +51,7 @@ const HeroSection = () => {
             >
               <FaLinkedin
                 size={30}
-                className="hover:text-myHeading text-blue-700 transition-all"
+                className="hover:text-myHeading text-myGry transition-all"
               />
             </a>
             <a
@@ -61,7 +61,7 @@ const HeroSection = () => {
             >
               <FaTwitter
                 size={30}
-                className="hover:text-myHeading text-blue-500 transition-all"
+                className="hover:text-myHeading text-myGry transition-all"
               />
             </a>
           </div>

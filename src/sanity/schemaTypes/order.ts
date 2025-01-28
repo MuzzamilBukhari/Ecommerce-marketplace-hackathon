@@ -50,6 +50,7 @@ export const order = defineType({
       title: "Total Amount",
       type: "number",
     }),
+
     defineField({
       name: "status",
       title: "Order Status",
@@ -63,7 +64,7 @@ export const order = defineType({
       title: "Payment Method",
       type: "string",
       options: {
-        list: ["cod", "bank-transfer"],
+        list: ["cod", "online-payment"],
       },
     }),
     defineField({

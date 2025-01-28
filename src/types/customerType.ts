@@ -7,5 +7,5 @@ export interface CustomerData {
   apartment?: string;
   city: string;
   postalCode?: string;
-  paymentMethod: "cod" | "bank-transfer";
+  paymentMethod: "cod" | "online-payment";
 }

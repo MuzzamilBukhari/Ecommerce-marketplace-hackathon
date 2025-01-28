@@ -4,24 +4,30 @@ import React from "react";
 const HeroSection = () => {
   return (
     <section
-      className="w-full bg-cover bg-center h-screen text-white body-font sm:pt-20"
-      style={{ backgroundImage: "url('/banners/hero1.png')" }}
+      className="w-full bg-cover bg-center h-screen body-font text-[#272343] relative"
+      style={{ backgroundImage: 'url("/home/herosection.jpg")' }}
     >
-      <div className="container mx-auto flex py-24 md:flex-row flex-col items-center">
-        <div className="lg:flex-grow md:w-1/2 mt-28 md:pl-16 flex flex-col md:items-start md:text-left mb-16 sm:mb-0 items-center text-center gap-6">
-          <h3 className="font-semibold text-myGry">SUMMER 2020</h3>
-          <h1 className="title-font text-4xl sm:text-5xl text-myHeading font-bold mt-2 ">
+      <div className="absolute inset-0 bg-myHeading opacity-15 z-0" />{" "}
+      {/* Semi-transparent overlay */}
+      <div className="container mx-auto flex justify-center items-center h-full relative">
+        <div className="text-center flex flex-col items-center gap-6">
+          <h3 className="font-semibold text-white text-xl sm:text-2xl">
+            SUMMER 2020
+          </h3>
+          <h1 className="title-font text-4xl sm:text-5xl font-bold mt-2 text-white">
             NEW COLLECTION
           </h1>
-          <p className=" text-myGry font-medium leading-relaxed">
+          <p className="font-medium leading-relaxed text-white text-base sm:text-lg">
             We know how large objects will act, <br /> but things on a small
             scale.
           </p>
           <button
             type="button"
-            className="bg-red-600 px-6 py-3 rounded-md hover:scale-105 duration-200"
+            className="bg-myHeading px-6 py-3 rounded-md hover:scale-105 duration-200"
           >
-            <Link href={"/shop"}>SHOP NOW</Link>
+            <Link href={"/shop"} className="text-white">
+              SHOP NOW
+            </Link>
           </button>
         </div>
       </div>

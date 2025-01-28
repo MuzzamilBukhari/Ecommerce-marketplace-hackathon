@@ -5,12 +5,15 @@ import Image from "next/image";
 import { CategoryCard, AllProducts, Payment, Pagination } from "@/components/";
 import Link from "next/link";
 import { useCategories } from "@/context/categoryContext";
-import { Product, useProducts } from "@/context/productsContext";
+import { useProducts } from "@/context/productsContext";
+import { Product } from "@/types/productType";
 import { stringToSlug } from "@/myFunctions/stringToSlug";
 import { client } from "@/sanity/lib/client";
 import FilterComponent from "@/components/product-list-page/FilterComponent";
 import { FilterState } from "@/types/FilterTypes";
-import { LoaderCircle } from "lucide-react";
+import Loader from "@/components/ui/Loader";
+import PageHeader from "@/components/ui/PageHeader";
+import { MdChevronRight } from "react-icons/md";
 
 const ShopPage = () => {
   const { categories, setCategories } = useCategories();
@@ -22,14 +25,11 @@ const ShopPage = () => {
       setLoading(true);
       try {
         let query = await client.fetch(
-          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, colors , 'image':image.asset->url, sizes, isNew}`
+          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, 'image':image.asset->url, sizes, bestSelling}`
         );
 
         const productsArr: Product[] = query.map((product: any) => {
           product.slug = stringToSlug(product.name);
-          product.tags = [];
-          product.stock = 20;
-
           return product;
         });
         console.log(productsArr);
@@ -87,24 +87,18 @@ const ShopPage = () => {
           <h1 className="text-3xl font-bold">Shop</h1>
           <div className="flex justify-center items-center gap-4 font-semibold">
             <h3>
-              <Link href={"/"}>Home</Link>
+              <Link href={"/"} className="text-myBlk">
+                Home
+              </Link>
             </h3>
-            <Image
-              src={"/icons/left-icon.png"}
-              alt="left"
-              width={8.62}
-              height={16}
-            />
-            <h3 className="text-myGry">
+            <MdChevronRight className="text-myHeading w-8 h-8" />
+            <h3 className="text-myGry ">
               <Link href={"/shop"}>Shop</Link>
             </h3>
           </div>
         </div>
         {loading ? (
-          <div className="w-full h-screen flex justify-center items-center mt-40">
-            {" "}
-            <LoaderCircle className="w-16 h-16" />
-          </div>
+          <Loader />
         ) : (
           <>
             {/* Shop categories */}
@@ -159,7 +153,7 @@ const ShopPage = () => {
             </div>
             {/* All products */}
             <AllProducts />
-            <Pagination />
+            {/* <Pagination /> */}
             <Payment />{" "}
           </>
         )}

@@ -1,7 +1,7 @@
 "use client";
 
 import React from "react";
-import ProductCard from "../ProductCard";
+import ProductCard from "../product-list-page/ProductCard";
 import { useProducts } from "@/context/productsContext";
 
 const BestSeller = ({ category, name }: { category: string; name: string }) => {

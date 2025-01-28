@@ -5,6 +5,7 @@ import {
   AiOutlinePhone,
   AiOutlineEnvironment,
 } from "react-icons/ai"; // React Icons
+import { brandDetails } from "@/brandDetails";
 
 const OurOffice = () => {
   return (
@@ -14,7 +15,7 @@ const OurOffice = () => {
           <h3 className="text-2xl font-semibold text-[#737373]">
             VISIT OUR OFFICE
           </h3>
-          <h1 className="text-3xl font-bold">
+          <h1 className="text-3xl font-bold text-myHeading">
             We help small businesses with big ideas
           </h1>
         </div>
@@ -24,28 +25,28 @@ const OurOffice = () => {
           {/* Card 1 - Email */}
           <div className="flex justify-center items-center flex-col font-semibold gap-6 bg-white p-8 shadow-lg rounded-lg w-full md:w-1/3 transition-transform hover:scale-105 duration-300">
             <div className="flex justify-center items-center flex-col gap-3">
-              <AiOutlineMail size={72} className="text-[#272343]" />
+              <AiOutlineMail size={72} className="text-myBlk" />
               <a
-                href="mailto:muhammadmuzzamilbukhari@gmail.com"
-                className="text-xl text-myHeading hover:underline"
+                href={`mailto:${brandDetails.email}`}
+                className="text-xl text-myBlk hover:underline"
               >
-                muhammadmuzzamilbukhari@gmail.com
+                {brandDetails.email}
               </a>
             </div>
             <div>Get Support</div>
-            <button className="px-6 py-3 rounded-full border-2 border-[#272343] text-[#272343] hover:bg-[#272343] hover:text-white transition-all">
+            <button className="px-6 py-3 rounded-full border-2 border-myHeading text-myHeading hover:bg-myHeading hover:text-white transition-all">
               Submit Request
             </button>
           </div>
 
           {/* Card 2 - Location */}
-          <div className="flex justify-center items-center flex-col font-semibold gap-6 bg-[#272343] text-white p-8 shadow-lg rounded-lg w-full md:w-1/3 transition-transform hover:scale-105 duration-300">
+          <div className="flex justify-center items-center flex-col font-semibold gap-6 bg-myHeading text-white p-8 shadow-lg rounded-lg w-full md:w-1/3 transition-transform hover:scale-105 duration-300">
             <div className="flex justify-center items-center flex-col gap-3">
               <AiOutlineEnvironment size={72} />
               <p>New Karachi, Karachi </p>
             </div>
             <div>Visit Us</div>
-            <button className="px-6 py-3 rounded-full border-2 border-white text-white hover:bg-white hover:text-[#272343] transition-all">
+            <button className="px-6 py-3 rounded-full border-2 border-white text-white hover:bg-white hover:text-myHeading transition-all">
               Submit Request
             </button>
           </div>
@@ -53,16 +54,16 @@ const OurOffice = () => {
           {/* Card 3 - Phone */}
           <div className="flex justify-center items-center flex-col font-semibold gap-6 bg-white p-8 shadow-lg rounded-lg w-full md:w-1/3 transition-transform hover:scale-105 duration-300">
             <div className="flex justify-center items-center flex-col gap-3">
-              <AiOutlinePhone size={72} className="text-[#272343]" />
+              <AiOutlinePhone size={72} className="text-myBlk" />
               <a
                 href="tel:+92 311 1091 341"
-                className="text-xl text-[#272343] hover:underline"
+                className="text-xl text-myBlk hover:underline"
               >
                 +92 311 1091 341
               </a>
             </div>
             <div>Call Us</div>
-            <button className="px-6 py-3 rounded-full border-2 border-[#272343] text-[#272343] hover:bg-[#272343] hover:text-white transition-all">
+            <button className="px-6 py-3 rounded-full border-2 border-myHeading text-myHeading hover:bg-myHeading hover:text-myWht transition-all">
               Submit Request
             </button>
           </div>

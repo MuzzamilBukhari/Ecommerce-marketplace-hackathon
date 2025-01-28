@@ -2,19 +2,23 @@
 
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState } from "react";
+import React, { Suspense, use, useEffect, useState } from "react";
 import { CgMenuLeftAlt } from "react-icons/cg";
 import { IoIosArrowDown, IoMdClose } from "react-icons/io";
 import NavLink from "./NavLink";
 import { useCart } from "@/context/cartContext";
 import { IoMdCart } from "react-icons/io";
-import { FaHeart } from "react-icons/fa";
+import { FaCheck, FaHeart } from "react-icons/fa";
 import { useWishlist } from "@/context/wishlistContext";
-import SearchBar from "./SearchBar";
-import { FaShirt } from "react-icons/fa6";
 import { IoPersonSharp } from "react-icons/io5";
+import SearchBar from "./SearchBar";
+import Logo from "../../../public/logo2.png";
+import UserIcon from "./UserIcon";
+import { usePathname } from "next/navigation";
 
 const Navbar = () => {
+  const pathName = usePathname();
+
   const { cartItems } = useCart();
   const { wishlist } = useWishlist();
   const [showDropdown, setShowDropdown] = useState(false);
@@ -37,60 +41,63 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleNavbar = () => setIsOpen(!isOpen);
+  useEffect(() => {
+    if (isOpen) {
+      document.body.style.overflow = "hidden"; // Disable scrolling
+    } else {
+      document.body.style.overflow = "auto"; // Enable scrolling
+    }
+  }, [isOpen]);
 
   return (
-    <div className="w-full bg-[#272343] text-white fixed top-0 left-0 z-50">
+    <div className="w-full bg-myGry text-myWht fixed top-0 left-0 z-100">
       <div className="container mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link
           href="/"
           className="text-xl lg:text-3xl font-bold flex items-center gap-2 text-white"
         >
-          <FaShirt className="text-white" /> Bandage
+          <Image src={Logo} alt={""} width={150} height={150} />
         </Link>
 
         {/* Large Screen Navigation */}
-        <div className="hidden lg:flex items-center gap-8">
+        <div className="hidden lg:flex items-center gap-12">
           {navLinks.map((link) => (
             <NavLink
               key={link.id}
               name={link.name}
               slug={link.slug}
-              onclick={function (): void {
-                throw new Error("Function not implemented.");
-              }}
+              isActive={link.slug === pathName}
             />
           ))}
           <SearchBar />
         </div>
 
         {/* Icons Section */}
-        <div className="flex items-center gap-6">
+        <div className="flex justify-center items-center gap-2 sm:gap-6">
+          {/* Cart icon */}
           <Link href="/cart" className="relative flex items-center">
-            <IoMdCart className="w-6 h-6 hover:text-gray-500" />
-            <span className="absolute top-0 right-0 text-xs bg-red-600 text-white rounded-full px-1">
+            <IoMdCart className="w-6 h-6 hover:text-myHeading" />
+            <span className="absolute top-0 right-0 text-xs bg-myHeading text-white rounded-full px-1">
               {cartItems.length}
             </span>
           </Link>
 
-          <Link href="/wishlist" className="flex items-center">
-            <FaHeart className="w-6 h-6 hover:text-gray-500" />
-            <span className="text-white"> {wishlist.length} </span>
+          <Link
+            href="/wishlist"
+            className="flex items-center hover:text-myHeading"
+          >
+            <FaHeart className="w-6 h-6 " />
+            <span className="text-white "> {wishlist.length} </span>
           </Link>
-          <div className="flex items-center gap-6 text-white">
-            <div className="hidden lg:flex items-center gap-2">
-              <IoPersonSharp className="w-6 h-6" />
-              <span>
-                <Link href="/login" className="hover:underline">
-                  Login
-                </Link>{" "}
-                /{" "}
-                <Link href="/signup" className="hover:underline">
-                  Register
-                </Link>
-              </span>
-            </div>
-          </div>
+
+          <Suspense
+            fallback={
+              <div className="w-6 h-6 animate-pulse bg-gray-300 rounded-full" />
+            }
+          >
+            <UserIcon />
+          </Suspense>
 
           {/* Mobile Hamburger Menu */}
           <button
@@ -108,7 +115,7 @@ const Navbar = () => {
 
       {/* Mobile Navigation */}
       <div
-        className={`fixed inset-0 bg-[#272343] text-white transform duration-300 ${
+        className={`fixed inset-0 bg-myGry text-white transform duration-300 ${
           isOpen ? "translate-x-0" : "translate-x-full"
         }`}
       >
@@ -120,7 +127,14 @@ const Navbar = () => {
           >
             ✕
           </button>
-
+          <div className="flex items-center justify-center gap-2 sm:text-left text-center w-full sm:w-auto mt-4 sm:mt-0">
+            <span className="text-myGry">
+              <FaCheck className="w-6 h-6" />
+            </span>
+            <span className="text-lg font-semibold text-myHeading">
+              Get 20% Off Your First Order!
+            </span>
+          </div>
           {/* Navigation Links */}
           {navLinks.map((link) => (
             <NavLink
@@ -128,54 +142,9 @@ const Navbar = () => {
               name={link.name}
               slug={link.slug}
               onclick={toggleNavbar}
+              isActive={link.slug === pathName}
             />
           ))}
-
-          <div className="flex items-center gap-2">
-            <IoPersonSharp className="w-6 h-6" />
-            <span>
-              <Link
-                href="/login"
-                onClick={toggleNavbar}
-                className="hover:underline"
-              >
-                Login
-              </Link>{" "}
-              /{" "}
-              <Link
-                href="/signup"
-                onClick={toggleNavbar}
-                className="hover:underline"
-              >
-                Register
-              </Link>
-            </span>
-          </div>
-
-          {/* Search Field */}
-          <SearchBar />
-
-          {/* Cart & Wishlist */}
-          <div className="flex gap-4">
-            <Link
-              href="/cart"
-              className="relative flex items-center"
-              onClick={toggleNavbar}
-            >
-              <IoMdCart className="w-8 h-8 hover:text-gray-500" />
-              <span className="absolute top-0 right-0 text-xs bg-red-600 text-white rounded-full px-1">
-                {cartItems.length}
-              </span>
-            </Link>
-            <Link
-              href="/wishlist"
-              className="flex items-center"
-              onClick={toggleNavbar}
-            >
-              <FaHeart className="w-8 h-8 hover:text-gray-500" />
-              <span className="text-white">{wishlist.length}</span>
-            </Link>
-          </div>
 
           {/* Language Dropdown */}
           <div className="flex items-center gap-2 xl:gap-6 w-full sm:w-auto mt-4 sm:mt-0 justify-center sm:justify-start">
@@ -186,7 +155,7 @@ const Navbar = () => {
                 onClick={() => setShowDropdown(!showDropdown)}
               />
               {showDropdown && (
-                <div className="absolute top-full mt-1 bg-white text-[#272343] text-sm rounded shadow-md z-10">
+                <div className="absolute top-full mt-1 bg-white text-myHeading text-sm rounded shadow-md z-10">
                   <div
                     className="px-4 py-2 hover:bg-gray-200 cursor-pointer"
                     onClick={() => {

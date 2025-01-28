@@ -1,6 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { brandDetails } from "@/brandDetails";
 
 const Footer = () => {
   const socialLinks = [
@@ -25,8 +26,13 @@ const Footer = () => {
       <div className="container px-5 py-8 mx-auto ">
         {/* footer head */}
         <div className=" w-full flex flex-col sm:flex-row justify-start sm:justify-between items-center mb-20 px-12">
-          <Link href={"/"} className="text-3xl font-bold">
-            Bandage
+          <Link href={"/"} className="text-3xl font-bold mb-4">
+            <Image
+              src={"/logo2.png"}
+              alt={brandDetails.name}
+              width={150}
+              height={150}
+            />
           </Link>
 
           {/* Social Links */}
@@ -38,15 +44,15 @@ const Footer = () => {
             ))}
           </span>
         </div>
-        <div className="flex flex-col sm:flex-row sm:justify-center items-center">
+        <div className="flex flex-col sm:flex-row sm:justify-center items-start sm:items-center">
           {/* links */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+          <div className="grid grid-cols-1 items-start sm:items-center sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
             {/* 1st col */}
-            <div className="  w-full px-4 font-bold  text-myGry flex flex-col gap-2 ">
-              <h2 className="title-font  text-myHeading tracking-widest text-sm mb-3">
+            <div className="  w-full px-4 font-bold flex flex-col gap-2 ">
+              <h2 className="title-font  text-myHeading tracking-widest text-base mb-3">
                 Company info
               </h2>
-              <nav className="list-none mb-10 flex flex-col gap-4 ">
+              <nav className="list-none mb-10 flex flex-col gap-4 text-myBlk ">
                 <li>
                   <a>About us</a>
                 </li>
@@ -62,11 +68,11 @@ const Footer = () => {
               </nav>
             </div>
             {/* 2nd col */}
-            <div className="  w-full px-4 font-bold  text-myGry  flex flex-col gap-2">
-              <h2 className="title-font  text-myHeading tracking-widest text-sm mb-3">
+            <div className="  w-full px-4 font-bold  flex flex-col gap-2">
+              <h2 className="title-font  text-myHeading tracking-widest text-base mb-3">
                 Legal
               </h2>
-              <nav className="list-none mb-10 flex flex-col gap-4">
+              <nav className="list-none mb-10 flex flex-col gap-4 text-myBlk">
                 <li>
                   <a>About us</a>
                 </li>
@@ -82,11 +88,11 @@ const Footer = () => {
               </nav>
             </div>
             {/* 3rd col */}
-            <div className="  w-full px-4 font-bold  text-myGry  flex flex-col gap-2">
+            <div className="  w-full px-4 font-bold  flex flex-col gap-2">
               <h2 className="title-font  text-myHeading tracking-widest text-sm mb-3">
                 Features
               </h2>
-              <nav className="list-none mb-10 flex flex-col gap-4">
+              <nav className="list-none mb-10 flex flex-col gap-4 text-myBlk">
                 <li>
                   <a>Business Marketing</a>
                 </li>
@@ -102,11 +108,11 @@ const Footer = () => {
               </nav>
             </div>
             {/* 4th col */}
-            <div className="  w-full px-4 font-bold  text-myGry  flex flex-col gap-2">
+            <div className="  w-full px-4 font-bold flex flex-col gap-2">
               <h2 className="title-font  text-myHeading tracking-widest text-sm mb-3">
                 Resources
               </h2>
-              <nav className="list-none mb-10 flex flex-col gap-4">
+              <nav className="list-none mb-10 flex flex-col gap-4 text-myBlk">
                 <li>
                   <a>About us</a>
                 </li>
@@ -134,9 +140,9 @@ const Footer = () => {
                   placeholder="Your Email"
                   id="footer-field"
                   name="footer-field"
-                  className="w-full bg-gray-100 bg-opacity-50 font-semibold rounded border border-gray-300 focus:ring-2 focus:bg-transparent focus:ring-indigo-200 focus:border-myBlue text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                  className="w-full bg-gray-100 bg-opacity-50 font-semibold rounded border border-gray-300 focus:ring-1 focus:bg-transparent focus:ring-myHeading focus:border-myHeading text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
                 />
-                <button className="inline-flex text-white bg-myBlue border-0 py-2 px-6 focus:outline-none hover:bg-myblborder-myBlue rounded">
+                <button className="inline-flex text-myWht bg-myHeading border-0 py-2 px-6 focus:outline-none hover:scale-105 duration-300 rounded">
                   Subscribe
                 </button>
               </div>

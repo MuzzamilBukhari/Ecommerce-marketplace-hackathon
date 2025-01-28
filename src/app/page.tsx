@@ -9,11 +9,14 @@ import {
   EditorsPick,
 } from "@/components/";
 import { useCategories } from "@/context/categoryContext";
-import { Product, useProducts } from "@/context/productsContext";
+import { useProducts } from "@/context/productsContext";
 import { stringToSlug } from "@/myFunctions/stringToSlug";
+import { Product } from "@/types/productType";
 import { client } from "@/sanity/lib/client";
 
 import { useEffect, useState } from "react";
+import { Loader } from "lucide-react";
+import { ClerkProvider } from "@clerk/nextjs";
 
 export default function Home() {
   const { products, setProducts } = useProducts();
@@ -24,13 +27,11 @@ export default function Home() {
     (async function () {
       try {
         let query = await client.fetch(
-          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, colors , 'image':image.asset->url, sizes, isNew}`
+          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, 'image':image.asset->url, sizes, bestSelling}`
         );
 
         const productsArr: Product[] = query.map((product: any) => {
           product.slug = stringToSlug(product.name);
-          product.tags = [];
-          product.stocks = 20;
           return product;
         });
         console.log(productsArr);
@@ -46,14 +47,14 @@ export default function Home() {
       }
     })();
   }, []);
-  // if (!isClient) {
-  //   return <div>loading</div>;
-  // }
+  if (!isClient) {
+    return <Loader />;
+  }
   return (
     <div className="bg-white">
       <HeroSection />
       <EditorsPick />
-      {products ? <HomeBestSeller products={products} /> : <div>loading</div>}
+      {products ? <HomeBestSeller products={products} /> : <Loader />}
       <HeroSection2 />
       <ContainerFluid />
       <FeaturedPosts />

@@ -1,9 +1,10 @@
 "use client";
 
 import React, { useState, useEffect, useRef, ChangeEvent } from "react";
-import { Search, X } from "lucide-react";
+import { Search, Tag, X } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { useProducts } from "@/context/productsContext";
+import { stringToSlug } from "@/myFunctions/stringToSlug";
 
 export interface SearchSuggestion {
   type: "product" | "tag";
@@ -45,19 +46,19 @@ const SearchBar = () => {
         const nameMatch = product.name
           .toLowerCase()
           .includes(query.toLowerCase());
-        const tagMatches = product.tags.filter((tag) =>
-          tag.toLowerCase().includes(query.toLowerCase())
-        );
+        // const tagMatches = product.tags.filter((tag) =>
+        //   tag.toLowerCase().includes(query.toLowerCase())
+        // );
 
         if (nameMatch) {
           acc.push({ type: "product", value: product.name });
         }
 
-        tagMatches.forEach((tag) => {
-          if (!acc.find((suggestion) => suggestion.value === tag)) {
-            acc.push({ type: "tag", value: tag });
-          }
-        });
+        // product.tags.forEach((tag) => {
+        //   if (!acc.find((suggestion) => suggestion.value === tag)) {
+        //     acc.push({ type: "tag", value: tag });
+        //   }
+        // });
 
         return acc;
       },
@@ -75,6 +76,7 @@ const SearchBar = () => {
   };
 
   const handleSuggestionClick = (suggestion: SearchSuggestion): void => {
+    console.log(suggestion.value);
     router.push(`/search?q=${encodeURIComponent(suggestion.value)}`);
     setShowSuggestions(false);
     setSearchQuery("");
@@ -94,7 +96,7 @@ const SearchBar = () => {
           value={searchQuery}
           onChange={handleInputChange}
           placeholder="Search products..."
-          className="w-full px-4 py-2 pl-10 pr-8 text-sm border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+          className="w-full px-4 py-2 pl-10 pr-8 text-sm border rounded-lg focus:outline-none focus:ring-1 focus:ring-myHeading"
         />
         <Search className="absolute left-3 top-2.5 h-4 w-4 text-gray-400" />
         {searchQuery && (

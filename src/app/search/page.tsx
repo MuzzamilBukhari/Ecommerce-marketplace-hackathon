@@ -1,11 +1,9 @@
 "use client";
 
-import { useSearchParams } from "next/navigation";
-import { useEffect, useState } from "react";
-import { Product, useProducts } from "@/context/productsContext";
-import Image from "next/image";
 import { Suspense } from "react";
-import SearchParams from "@/components/SearchParams";
+import SearchParams from "@/components/search/SearchParams";
+import { Link } from "lucide-react";
+import { MdChevronRight } from "react-icons/md";
 const SearchPage = () => {
   return (
     <div className="pt-40 bg-[#fafafa] text-black">
@@ -13,14 +11,15 @@ const SearchPage = () => {
       <div className=" w-full flex flex-col sm:flex-row gap-6 sm:gap-0 justify-start sm:justify-between items-center mb-20 px-12 bg-[#fafafa]">
         <h1 className="text-3xl font-bold">Shop</h1>
         <div className="flex justify-center items-center gap-4 font-semibold">
-          <h3>Home</h3>
-          <Image
-            src={"/icons/left-icon.png"}
-            alt="left"
-            width={8.62}
-            height={16}
-          />
-          <h3 className="text-myGry">Shop</h3>
+          <h3>
+            <Link href={"/"} className="text-myBlk">
+              Home
+            </Link>
+          </h3>
+          <MdChevronRight className="text-myHeading w-8 h-8" />
+          <h3 className="text-myGry ">
+            <Link href={"/shop"}>Shop</Link>
+          </h3>
         </div>
       </div>
 

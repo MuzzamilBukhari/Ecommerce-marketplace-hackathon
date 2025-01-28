@@ -9,21 +9,25 @@ export default defineType({
       name: "name",
       title: "Name",
       type: "string",
+      // validation: (Rule) => Rule.required,
     },
     {
       name: "price",
       title: "Price",
       type: "number",
+      // validation: (Rule) => Rule.required(),
     },
     {
       name: "description",
       title: "Description",
       type: "text",
+      // validation: (Rule) => Rule.required(),
     },
     {
       name: "image",
       title: "Image",
       type: "image",
+      // validation: (Rule) => Rule.required(),
     },
     {
       name: "category",
@@ -31,13 +35,14 @@ export default defineType({
       type: "string",
       options: {
         list: [
-          { title: "T-Shirt", value: "tshirt" },
-          { title: "Short", value: "short" },
-          { title: "Jeans", value: "jeans" },
-          { title: "Hoddie", value: "hoodie" },
-          { title: "Shirt", value: "shirt" },
+          { title: "Sneakers", value: "sneakers" },
+          { title: "Joggers", value: "joggers" },
+          { title: "Glasses", value: "glasses" },
+          { title: "Skechers", value: "skechers" },
+          { title: "Slides", value: "slides" },
         ],
       },
+      // validation: (Rule) => Rule.required(),
     },
     {
       name: "discountPercent",
@@ -48,11 +53,12 @@ export default defineType({
       name: "stock",
       title: "Product Stock",
       type: "number",
+      // validation: (Rule) => Rule.required(),
     },
     {
-      name: "isNew",
+      name: "bestSelling",
       type: "boolean",
-      title: "New",
+      title: "Best Selling",
     },
     {
       name: "colors",

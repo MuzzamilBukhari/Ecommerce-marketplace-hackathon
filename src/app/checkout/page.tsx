@@ -50,7 +50,7 @@ export default function CheckoutPage() {
           <div className="">
             <div>
               {cartItems.map((item: CartItem) => (
-                <CartCard key={item._id} item={item} />
+                <CartCard key={item._id} item={item} isCheckout={true} />
               ))}
             </div>
             <div>

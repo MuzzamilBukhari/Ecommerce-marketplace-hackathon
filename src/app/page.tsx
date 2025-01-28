@@ -16,7 +16,6 @@ import { client } from "@/sanity/lib/client";
 
 import { useEffect, useState } from "react";
 import { Loader } from "lucide-react";
-import { ClerkProvider } from "@clerk/nextjs";
 
 export default function Home() {
   const { products, setProducts } = useProducts();

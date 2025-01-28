@@ -9,7 +9,7 @@ import { Button } from "../ui/Button";
 
 const LetsTalk = () => {
   return (
-    <div className="max-w-[1280px] m-auto min-h-[70vh] md:py-20 sm:py-10 py-6 p-3 px-4 sm:px-0">
+    <div className="max-w-[1280px] m-auto min-h-[70vh] md:py-20 sm:py-10 py-6 p-3 px-4 sm:px-12">
       <div className="w-full md:flex justify-center items-center gap-3">
         <div className="md:w-[35%] w-full sm:p-4 space-y-4 md:py-0 py-8">
           <div className="flex items-center gap-3">

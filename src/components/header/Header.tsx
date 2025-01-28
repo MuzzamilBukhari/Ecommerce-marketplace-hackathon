@@ -20,7 +20,7 @@ const Header = () => {
           </div>
         </div>
 
-        <div className="flex items-center justify-center gap-2 sm:text-left text-center w-full sm:w-auto mt-5 sm:mt-0">
+        <div className="flex items-center justify-center gap-2 sm:text-left text-center w-full sm:w-auto mt-10 sm:mt-0">
           <SearchBar />
         </div>
       </div>

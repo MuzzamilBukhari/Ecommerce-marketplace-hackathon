@@ -63,9 +63,9 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
 
   return product ? (
     <section className="body-font overflow-hidden pt-32 bg-[#fafafa] rounded-lg">
-      <div className="container mx-auto px-8 py-8 sm:px-0">
+      <div className="container mx-auto py-8 ">
         {/* Product Details */}
-        <div className="lg:w-4/5 mx-auto flex flex-wrap">
+        <div className="lg:w-4/5 mx-auto flex flex-wrap px-8">
           <Image src={product.image} alt="product" width={500} height={400} />
           <div className="lg:w-1/2 w-full lg:pl-10 lg:py-6 mt-6 lg:mt-0">
             <h1 className="text-myHeading text-3xl title-font font-medium mb-1">

@@ -74,7 +74,7 @@ const Navbar = () => {
         </div>
 
         {/* Icons Section */}
-        <div className="flex justify-center items-center gap-2 sm:gap-6">
+        <div className="flex justify-center items-center gap-3 sm:gap-6">
           {/* Cart icon */}
           <Link href="/cart" className="relative flex items-center">
             <IoMdCart className="w-6 h-6 hover:text-myHeading" />

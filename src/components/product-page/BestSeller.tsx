@@ -10,7 +10,7 @@ const BestSeller = ({ category, name }: { category: string; name: string }) => {
     (product) => product.category == category && product.name !== name
   );
   return (
-    <div className="py-12">
+    <div className="py-12 ">
       <div className="text-xl font-bold text-myHeading sm:ml-12 md:ml-28 lg:ml-20 xl:ml-12 text-center sm:text-left">
         <h1>RELATED PRODUCTS</h1>
       </div>

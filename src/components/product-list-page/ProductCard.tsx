@@ -21,10 +21,10 @@ const ProductCard = ({
   return (
     <Link
       href={`/shop/${category}/${slug}`}
-      className="text-black hover:scale-105 duration-200 shadow-myGry/40 shadow-md rounded-xl"
+      className="w-[88%] sm:w-auto text-black hover:scale-105 duration-200 shadow-myGry/40 shadow-md rounded-xl"
     >
       <div className=" flex justify-center items-center flex-col py-6 px-2 sm:p-5">
-        <div className="w-[200px] h-[200px] overflow-hidden object-center object-cover">
+        <div className="w-[250px] h-[250px] overflow-hidden object-center object-cover">
           <Image
             className="object-contain object-center rounded "
             alt="product"

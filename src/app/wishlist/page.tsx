@@ -20,7 +20,13 @@ const WishlistPage = () => {
   return (
     <section className="pt-32">
       <div className="container mx-auto px-8">
-        <PageHeader first="" second="Wishlist" tagline="" pageName="Wishlist" />
+        <PageHeader
+          first=""
+          second="Wishlist"
+          tagline=""
+          pageName="Wishlist"
+          pageUrl="/wishlist"
+        />
         {wishlist.length > 0 ? (
           <Wishlist />
         ) : (

@@ -70,6 +70,7 @@ const Team = () => {
           second="Innovation tailored for you"
           tagline=""
           pageName="Team"
+          pageUrl="/team"
         />
 
         {/* Meet our Team */}

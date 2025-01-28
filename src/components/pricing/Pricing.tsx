@@ -54,6 +54,7 @@ const Pricing = () => {
         second={"Simple Pricing"}
         tagline={""}
         pageName={"Pricing"}
+        pageUrl="/pricing"
       />
 
       {/* Pricing Toggle */}

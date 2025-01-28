@@ -19,7 +19,13 @@ const CartPage = () => {
     <section className="flex justify-center items-center flex-col pt-40  text-black bg-white ">
       <div className="w-full mx-auto">
         {/* Cart header */}
-        <PageHeader first="" second="Cart" tagline="" pageName="Cart" />
+        <PageHeader
+          first=""
+          second="Cart"
+          tagline=""
+          pageName="Cart"
+          pageUrl="/cart"
+        />
 
         {cartItems.length > 0 ? (
           <Cart />

@@ -1,17 +1,20 @@
 import React from "react";
 import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
+import { parseUrl } from "next/dist/shared/lib/router/utils/parse-url";
 
 const PageHeader = ({
   first,
   second,
   tagline,
   pageName,
+  pageUrl,
 }: {
   first: string;
   second: string;
   tagline: string;
   pageName: string;
+  pageUrl: string;
 }) => {
   return (
     <div className="flex justify-center items-center flex-col gap-5 mt-12">
@@ -25,7 +28,7 @@ const PageHeader = ({
         </h3>
         <MdChevronRight className="text-myHeading w-8 h-8" />
         <h3 className="text-myGry">
-          <Link href={"/team"}>{pageName}</Link>
+          <Link href={pageUrl}>{pageName}</Link>
         </h3>
       </div>
     </div>

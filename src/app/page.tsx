@@ -46,7 +46,7 @@ export default function Home() {
         throw new Error("Error in fetch");
       }
     })();
-  }, []);
+  }, [setProducts, setCategories]);
   if (!isClient) {
     return <Loader />;
   }

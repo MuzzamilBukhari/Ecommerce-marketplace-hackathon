@@ -3,7 +3,7 @@
 import React, { useState, useRef, useEffect } from "react";
 import Image from "next/image";
 import type { FilterState } from "@/types/FilterTypes";
-import { Product } from "@/context/productsContext";
+import { Product } from "@/types/productType";
 
 interface FilterProps {
   onFilterChange: (filters: FilterState) => void;

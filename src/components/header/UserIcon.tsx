@@ -25,16 +25,18 @@ const UserIcon = () => {
   return (
     <div className="relative">
       {isSignedIn ? (
-        <UserButton
-          appearance={{
-            elements: {
-              avatarBox: "w-8 h-8",
-              userButtonPopoverCard: "min-w-[240px]",
-            },
-          }}
-          userProfileMode="navigation"
-          userProfileUrl="/user-profile"
-        />
+        <div className="mt-2">
+          <UserButton
+            appearance={{
+              elements: {
+                avatarBox: "w-8 h-8",
+                userButtonPopoverCard: "min-w-[240px]",
+              },
+            }}
+            userProfileMode="navigation"
+            userProfileUrl="/user-profile"
+          />
+        </div>
       ) : (
         <button
           onClick={handleIconClick}

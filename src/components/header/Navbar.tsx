@@ -61,7 +61,7 @@ const Navbar = () => {
         </Link>
 
         {/* Large Screen Navigation */}
-        <div className="hidden lg:flex items-center gap-12">
+        <div className="hidden lg:flex items-center gap-8">
           {navLinks.map((link) => (
             <NavLink
               key={link.id}

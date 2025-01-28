@@ -7,7 +7,7 @@ export default function Page() {
       <div className="w-full xs:py-20 py-10 flex md:gap-10 gap-5">
         <div className="md:w-1/2 w-full md:block hidden rounded-md overflow-hidden">
           <Image
-            src="/auth/signup.avif"
+            src="/auth/auth.jpg"
             alt="Sign Up Page Image"
             width={805}
             height={781}

@@ -25,7 +25,7 @@ const ShopPage = () => {
       setLoading(true);
       try {
         let query = await client.fetch(
-          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, 'image':image.asset->url, sizes, bestSelling}`
+          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, 'image':image.asset->url, sizes, bestSelling, stock}`
         );
 
         const productsArr: Product[] = query.map((product: any) => {

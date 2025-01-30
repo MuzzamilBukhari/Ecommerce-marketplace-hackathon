@@ -16,6 +16,9 @@ import {
 } from "@/components/toast/ToastNotifications";
 import { CartItem } from "@/types/cartType";
 import { FormData } from "@/types/FormDataType";
+import { client } from "@/sanity/lib/client";
+import { useUser } from "@clerk/nextjs";
+import { createOrder } from "@/sanity/lib/customerManagement";
 
 interface CartItemType {
   cartItems: CartItem[];
@@ -107,84 +110,107 @@ export const CartItemProvier = ({ children }: { children: ReactNode }) => {
   };
 
   const submitOrder = async (formData: FormData, paymentMethod: string) => {
+    const { user } = useUser();
     try {
-      // const stockChecks = await Promise.all(
-      //   cartItems.map(async (cartItem) => {
-      //     // Fetch current product stock from Sanity
-      //     const product = await client.fetch<Product>(
-      //       `*[_type == "products" && _id == $productId][0]{
-      //         _id,
-      //         stock
-      //       }`,
-      //       { productId: cartItem._id }
-      //     );
+      // check for availability of stock
+      await Promise.all(
+        cartItems.map(async (cartItem) => {
+          // Fetch current product stock from Sanity
+          const product = await client.fetch<Product>(
+            `*[_type == "products" && _id == $productId][0]{
+              _id,
+              stock
+            }`,
+            { productId: cartItem._id }
+          );
 
-      //     if (!product) {
-      //       throw new Error(Product ${cartItem._id} not found);
-      //     }
+          if (!product) {
+            throw new Error(`Product ${cartItem._id} not found`);
+          }
 
-      //     if (product.stock < cartItem.cartQuantity) {
-      //       throw new Error(
-      //         Not enough stock for ${cartItem.name}. Available: ${product.stock}, Requested: ${cartItem.cartQuantity}
-      //       );
-      //     }
+          if (product.stock < cartItem.cartQuantity) {
+            throw new Error(
+              `Not enough stock for ${cartItem.name}. Available: ${product.stock}, Requested: ${cartItem.cartQuantity}`
+            );
+          }
 
-      //     return true;
-      //   })
-      // );
+          return true;
+        })
+      );
+      let order;
+      if (user) {
+        const customer = await client.fetch(
+          `*[_type == "customer" && email == $email][0]._id`,
+          { email: user.primaryEmailAddress?.emailAddress }
+        );
+        order = await createOrder(
+          {
+            items: cartItems,
+            totalAmount: cartTotal,
+            paymentMethod,
+            phone: formData.phone,
+            street: formData.address,
+            apartment: formData.apartment,
+            city: formData.city,
+            postalCode: formData.postalCode,
+          },
+          customer
+        );
+      }
 
       // Create customer document
-      const customer = await writeClient.create({
-        _type: "customer",
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        address: {
-          street: formData.address,
-          apartment: formData.apartment,
-          city: formData.city,
-          postalCode: formData.postalCode,
-        },
-      });
+      // const customer = await writeClient.create({
+      //   _type: "customer",
+      //   firstName: formData.firstName,
+      //   lastName: formData.lastName,
+      //   email: formData.email,
+      //   phone: formData.phone,
+      //   address: {
+      //     street: formData.address,
+      //     apartment: formData.apartment,
+      //     city: formData.city,
+      //     postalCode: formData.postalCode,
+      //   },
+      // });
 
       // Create order document
-      const order = await writeClient.create({
-        _type: "order",
-        orderNumber: ` ORD-${Date.now()}`,
-        customer: {
-          _type: "reference",
-          _ref: customer._id,
-        },
-        items: cartItems.map((item) => ({
-          _key: item._id,
-          _type: "object",
-          products: {
-            _type: "reference",
-            _ref: item._id,
-          },
-          quantity: item.cartQuantity, // This is the quantity ordered
-          price: item.price,
-        })),
-        total: cartTotal,
-        status: "pending",
-        paymentMethod,
-      });
+      // const order = await writeClient.create({
+      //   _type: "order",
+      //   orderNumber: ` ORD-${Date.now()}`,
+      //   customer: {
+      //     _type: "reference",
+      //     _ref: customer._id,
+      //   },
+      //   items: cartItems.map((item) => ({
+      //     _key: item._id,
+      //     _type: "object",
+      //     products: {
+      //       _type: "reference",
+      //       _ref: item._id,
+      //     },
+      //     quantity: item.cartQuantity, // This is the quantity ordered
+      //     price: item.price,
+      //   })),
+      //   total: cartTotal,
+      //   status: "pending",
+      //   paymentMethod,
+      // });
 
       // Update inventory for each product
-      // await Promise.all(
-      //   cartItems.map((item) =>
-      //     writeClient
-      //       .patch(item._id)
-      //       .dec({ stock: item.cartQuantity }) // Decrease the stock by cart quantity
-      //       .commit()
-      //   )
-      // );
+      await Promise.all(
+        cartItems.map(
+          async (item) =>
+            await writeClient
+              .patch(item._id)
+              .dec({ stock: item.cartQuantity }) // Decrease the stock by cart quantity
+              .commit()
+        )
+      );
 
       // Clear the cart
       clearCart();
 
-      return { success: true, orderId: order._id };
+      return { success: true, orderId: order?._id };
     } catch (error) {
       console.error("Error submitting order:", error);
       return {

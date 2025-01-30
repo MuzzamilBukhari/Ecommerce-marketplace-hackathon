@@ -27,7 +27,7 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
     (async function () {
       try {
         let query = await client.fetch(
-          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, 'image':image.asset->url, sizes, bestSelling}`
+          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, 'image':image.asset->url, sizes, bestSelling, stock}`
         );
 
         const productsArr: Product[] = query.map((product: any) => {
@@ -98,7 +98,9 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
             {/* Availability */}
             <div className="font-semibold mt-3">
               <span className="text-myGry">Availability : </span>
-              <span className="text-myBlk">34</span>
+              <span className="text-myBlk">
+                {product.stock ? product.stock : "Out of Stock"}
+              </span>
             </div>
             {/* Sizes */}
             <div className="flex mt-6 items-center pb-5 mb-5 gap-3">
@@ -130,6 +132,7 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
 
               <button
                 onClick={() => handleCart(product)}
+                disabled={!product.stock}
                 className="flex items-center gap-2 text-myGry bg-white border-2 border-myGry font-semibold py-2 px-6 focus:outline-none hover:scale-105 duration-200 rounded"
               >
                 <IoMdCart className="w-6 h-6" />

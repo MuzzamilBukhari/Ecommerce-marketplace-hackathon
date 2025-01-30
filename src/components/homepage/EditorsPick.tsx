@@ -16,9 +16,7 @@ const EditorsPick = () => {
             Problems trying to resolve the conflict between
           </h6>
         </div>
-        {/* Grid container with new layout */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 text-[#FAFAFA]">
-          {/* Large Jordan image - 6 columns on large screens */}
           <div className="lg:col-span-6 relative aspect-square">
             <ImageOverlay
               src={One || "/placeholder.svg"}
@@ -27,7 +25,6 @@ const EditorsPick = () => {
             />
           </div>
 
-          {/* Middle Glasses image - 3 columns on large screens */}
           <div className="lg:col-span-3 relative aspect-[3/4]">
             <ImageOverlay
               src={Two || "/placeholder.svg"}
@@ -36,7 +33,6 @@ const EditorsPick = () => {
             />
           </div>
 
-          {/* Right column with two images - 3 columns on large screens */}
           <div className="lg:col-span-3 grid grid-rows-2 gap-4">
             <div className="relative aspect-square">
               <ImageOverlay
@@ -70,8 +66,8 @@ const ImageOverlay = ({
   title: string;
 }) => (
   <>
-    <div className="absolute inset-0 z-10 flex items-end p-4 sm:p-6">
-      <h1 className="text-lg sm:text-xl lg:text-2xl bg-myGry/80 backdrop-blur-sm px-4 py-2 font-semibold text-white">
+    <div className="absolute inset-0 z-10 flex items-end p-4 sm:p-6 pointer-events-none">
+      <h1 className="text-lg sm:text-xl lg:text-2xl bg-myGry/80 backdrop-blur-sm px-4 py-2 font-semibold text-white pointer-events-none z-20">
         {title}
       </h1>
     </div>

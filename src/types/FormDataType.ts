@@ -1,5 +1,5 @@
 import { CustomerData } from "./customerType";
 
 export interface FormData extends CustomerData {
-  email: string;
+  paymentMethod: "cod" | "online-payment";
 }

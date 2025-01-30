@@ -1,9 +1,11 @@
+"use client";
+
 import { useProducts } from "@/context/productsContext";
 import { Product } from "@/types/productType";
 import { useSearchParams } from "next/navigation";
 import React, { useEffect, useState } from "react";
 import ProductCard from "../product-list-page/ProductCard";
-import products from "@/sanity/schemaTypes/products";
+import Loader from "../ui/Loader";
 
 const SearchParams = () => {
   const searchParams = useSearchParams();
@@ -67,7 +69,7 @@ const SearchParams = () => {
       </div>
     </div>
   ) : (
-    <div>Loading</div>
+    <Loader />
   );
 };
 

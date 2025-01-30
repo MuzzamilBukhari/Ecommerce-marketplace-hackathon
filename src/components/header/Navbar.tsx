@@ -50,7 +50,7 @@ const Navbar = () => {
   }, [isOpen]);
 
   return (
-    <div className="w-full bg-myGry text-myWht fixed top-0 left-0 z-100">
+    <div className="w-full bg-myGry text-myWht fixed top-0 left-0 z-50">
       <div className="container mx-auto px-4 lg:px-8 py-3 flex justify-between items-center">
         {/* Logo */}
         <Link

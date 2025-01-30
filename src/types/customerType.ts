@@ -1,4 +1,5 @@
 export interface CustomerData {
+  clerkId: string;
   firstName: string;
   lastName: string;
   email: string;
@@ -7,5 +8,4 @@ export interface CustomerData {
   apartment?: string;
   city: string;
   postalCode?: string;
-  paymentMethod: "cod" | "online-payment";
 }

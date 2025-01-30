@@ -1,9 +1,8 @@
-"use client";
-
 import { Suspense } from "react";
 import SearchParams from "@/components/search/SearchParams";
 import { Link } from "lucide-react";
 import { MdChevronRight } from "react-icons/md";
+import Loader from "@/components/ui/Loader";
 const SearchPage = () => {
   return (
     <div className="pt-40 bg-[#fafafa] text-black">
@@ -23,7 +22,7 @@ const SearchPage = () => {
         </div>
       </div>
 
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         <SearchParams />
       </Suspense>
     </div>

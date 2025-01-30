@@ -36,6 +36,7 @@ interface CartItemType {
 const CartItemContext = createContext<CartItemType | undefined>(undefined);
 
 export const CartItemProvier = ({ children }: { children: ReactNode }) => {
+  const { user } = useUser();
   const [cartItems, setCartItems] = useState<CartItem[]>(() => {
     if (typeof window !== "undefined") {
       const storedCart = localStorage.getItem("cart");
@@ -110,7 +111,6 @@ export const CartItemProvier = ({ children }: { children: ReactNode }) => {
   };
 
   const submitOrder = async (formData: FormData, paymentMethod: string) => {
-    const { user } = useUser();
     try {
       // check for availability of stock
       await Promise.all(

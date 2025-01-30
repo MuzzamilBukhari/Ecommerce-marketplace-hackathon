@@ -2,8 +2,9 @@
 import { headers } from "next/headers";
 import { Webhook } from "svix";
 import { WebhookEvent } from "@clerk/nextjs/server";
+import { NextRequest } from "next/server";
 
-export async function POST(req: { json: () => any }) {
+export async function POST(req: Request | NextRequest) {
   // Get the webhook signing secret from your environment variables
   const WEBHOOK_SECRET = process.env.CLERK_WEBHOOK_SECRET;
 

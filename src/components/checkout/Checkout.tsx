@@ -70,7 +70,7 @@ const Checkout = () => {
           label="Email"
           type="email"
           name="email"
-          value={formData.email || ""}
+          value={formData?.email || ""}
           onChange={handleInputChange}
           required
         />

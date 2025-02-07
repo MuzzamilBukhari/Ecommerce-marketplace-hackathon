@@ -2,24 +2,29 @@
 
 import {
     ContainerFluid,
+    HeroSection,
+    HeroSection2,
     HomeBestSeller,
     FeaturedPosts,
     EditorsPick,
 } from "@/components/";
-import HeroSection2 from "@/components/homepage/HeroSection2";
-import Loader from "@/components/ui/Loader";
 import { useCategories } from "@/context/categoryContext";
-import { Product, useProducts } from "@/context/productsContext";
+import { useProducts } from "@/context/productsContext";
 import { stringToSlug } from "@/myFunctions/stringToSlug";
+import { Product } from "@/types/productType";
 import { client } from "@/sanity/lib/client";
 
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Loader } from "lucide-react";
 
 export default function Home() {
     const { products, setProducts } = useProducts();
     const { setCategories } = useCategories();
+    const [isClient, setIsClient] = useState(false);
+
     useEffect(() => {
         (async function () {
+            setIsClient(true);
             try {
                 let query = await client.fetch(
                     `*[_type == "products"]{_id, _createdAt, name, description, 'category':category->name, price, discountPercent, colors , 'image':image.asset->url, sizes, stock, bestSelling}`
@@ -39,15 +44,18 @@ export default function Home() {
                 setCategories(query);
             } catch (error) {
                 throw new Error("Error in fetch");
-            } finally {
             }
         })();
     }, [setCategories, setProducts]);;
+    if (!isClient) {
+        return <Loader />;
+    }
     return (
         <div className="bg-white">
-            <HeroSection2 />
+            <HeroSection />
             <EditorsPick />
             {products ? <HomeBestSeller products={products} /> : <Loader />}
+            <HeroSection2 />
             <ContainerFluid />
             <FeaturedPosts />
         </div>

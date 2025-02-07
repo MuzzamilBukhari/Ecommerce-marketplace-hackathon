@@ -27,6 +27,7 @@
     "react-icons": "^5.4.0",
     "react-toastify": "^11.0.3",
     "sanity": "^3.69.0",
+    "sharp": "^0.33.5",
     "stripe": "^17.5.0",
     "styled-components": "^6.1.14",
     "svix": "^1.45.1"

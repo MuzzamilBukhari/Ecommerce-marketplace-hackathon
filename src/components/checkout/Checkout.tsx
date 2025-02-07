@@ -7,12 +7,15 @@ import { useCart } from "@/context/cartContext";
 import { useForm } from "@/context/formDataContext";
 import { useAuth } from "@clerk/nextjs";
 
-const Checkout = () => {
+const Checkout: React.FC = () => {
   const router = useRouter();
+  const { userId } = useAuth();
   const { submitOrder, cartTotal } = useCart();
+  // const [billingSameAsShipping, setBillingSameAsShipping] = useState<boolean>(
+  //   true
+  // );
   const [loading, setLoading] = useState<boolean>(false);
   const { formData, setFormData } = useForm();
-  const { userId } = useAuth();
 
   const handleInputChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -34,12 +37,7 @@ const Checkout = () => {
         if (!userId) {
           throw new Error("User ID is missing");
         }
-        console.log(userId);
-        const result = await submitOrder(
-          formData,
-          formData.paymentMethod,
-          userId
-        );
+        const result = await submitOrder(formData, formData.paymentMethod, userId);
 
         if (result.success && result.orderId) {
           router.push(`/order-confirmation/${result.orderId}`);
@@ -70,7 +68,7 @@ const Checkout = () => {
           label="Email"
           type="email"
           name="email"
-          value={formData?.email || ""}
+          value={formData.email}
           onChange={handleInputChange}
           required
         />

@@ -52,9 +52,9 @@ export default function ProductsPage() {
     }
   };
 
-  // const filteredProducts = products.filter((product) =>
-  //   product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  // );
+  const filteredProducts = products.filter((product) =>
+    product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <div>
@@ -70,7 +70,7 @@ export default function ProductsPage() {
       </div>
 
       <div className="flex flex-col gap-6">
-        {products?.map((product) => (
+        {filteredProducts?.map((product) => (
           <div key={product._id} className="bg-white p-6 rounded-lg shadow flex items-center">
             <Image
               src={product.image}

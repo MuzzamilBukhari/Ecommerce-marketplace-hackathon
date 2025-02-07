@@ -68,7 +68,7 @@ const Checkout: React.FC = () => {
           label="Email"
           type="email"
           name="email"
-          value={formData.email}
+          value={formData?.email || ""}
           onChange={handleInputChange}
           required
         />
@@ -83,7 +83,7 @@ const Checkout: React.FC = () => {
               label="First Name"
               type="text"
               name="firstName"
-              value={formData.firstName}
+              value={formData.firstName || ""}
               onChange={handleInputChange}
               required
             />
@@ -99,7 +99,7 @@ const Checkout: React.FC = () => {
             label="Address"
             type="text"
             name="address"
-            value={formData.address}
+            value={formData.address || ""}
             onChange={handleInputChange}
             required
           />
@@ -115,7 +115,7 @@ const Checkout: React.FC = () => {
               label="City"
               type="text"
               name="city"
-              value={formData.city}
+              value={formData.city || ""}
               onChange={handleInputChange}
               required
             />
@@ -131,7 +131,7 @@ const Checkout: React.FC = () => {
             label="Phone"
             type="tel"
             name="phone"
-            value={formData.phone}
+            value={formData.phone || ""}
             onChange={handleInputChange}
             required
           />

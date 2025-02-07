@@ -1,20 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
-import { Header, Navbar, Footer } from "@/components/";
 import { ProductsProvider } from "@/context/productsContext";
 import { CategoryProvider } from "@/context/categoryContext";
 import { CartItemProvier } from "@/context/cartContext";
 import { WishlistProvider } from "@/context/wishlistContext";
-import { ToastProvider } from "@/components/toast/ToastNotifications";
 import { FormProvider } from "@/context/formDataContext";
-import {
-  ClerkProvider,
-  SignedIn,
-  SignedOut,
-  SignInButton,
-  UserButton,
-} from "@clerk/nextjs";
+import { ClerkProvider } from "@clerk/nextjs";
+import { ToastProvider } from "@/components/toast/ToastNotifications";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -31,8 +24,6 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  console.log("SANITY PROJECT ID:", process.env.NEXT_PUBLIC_SANITY_PROJECT_ID);
-
   return (
     <ClerkProvider afterSignOutUrl={"/sign-in"}>
       <html lang="en">
@@ -43,10 +34,13 @@ export default function RootLayout({
                 <CategoryProvider>
                   <ProductsProvider>
                     <WishlistProvider>
-
-
+                      {/* <SignedOut>
+                        <SignInButton />
+                      </SignedOut> */}
+                      {/* <SignedIn>
+                        <UserButton />
+                      </SignedIn> */}
                       {children}
-
                     </WishlistProvider>
                   </ProductsProvider>
                 </CategoryProvider>

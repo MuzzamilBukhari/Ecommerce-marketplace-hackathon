@@ -36,7 +36,7 @@ export default async function AdminDashboard() {
 
   // Fetch other metrics
   const totalOrders = await client.fetch(`count(*[_type == "order"])`);
-  const totalProducts = await client.fetch(`count(*[_type == "product"])`);
+  const totalProducts = await client.fetch(`count(*[_type == "products"])`);
   const totalCustomers = await client.fetch(`count(*[_type == "customer"])`);
 
   // Fetch recent orders
@@ -172,8 +172,8 @@ export default async function AdminDashboard() {
                 <p className="font-medium">${order.total}</p>
                 <span
                   className={`px-3 py-1 text-sm rounded-full ${order.status === "completed"
-                      ? "bg-green-100 text-green-600"
-                      : "bg-yellow-100 text-yellow-600"
+                    ? "bg-green-100 text-green-600"
+                    : "bg-yellow-100 text-yellow-600"
                     }`}
                 >
                   {order.status}

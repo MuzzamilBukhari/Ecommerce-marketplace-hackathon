@@ -52,9 +52,9 @@ export default function ProductsPage() {
     }
   };
 
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchQuery.toLowerCase())
-  );
+  // const filteredProducts = products.filter((product) =>
+  //   product.name.toLowerCase().includes(searchQuery.toLowerCase())
+  // );
 
   return (
     <div>
@@ -70,7 +70,7 @@ export default function ProductsPage() {
       </div>
 
       <div className="flex flex-col gap-6">
-        {filteredProducts?.map((product) => (
+        {products?.map((product) => (
           <div key={product._id} className="bg-white p-6 rounded-lg shadow flex items-center">
             <Image
               src={product.image}
@@ -95,7 +95,7 @@ export default function ProductsPage() {
 
               <div className="flex gap-2 mt-2 items-center">
                 <span className="text-sm text-gray-600">Colors:</span>
-                {product.colors.map((color, index) => (
+                {product.colors?.map((color, index) => (
                   <div
                     key={index}
                     className="w-6 h-6 rounded-full border border-black"
@@ -106,7 +106,7 @@ export default function ProductsPage() {
 
               <div className="flex gap-2 mt-2 items-center">
                 <span className="text-sm text-gray-600">Sizes:</span>
-                {product.sizes.map((size, index) => (
+                {product.sizes?.map((size, index) => (
                   <span
                     key={index}
                     className="bg-gray-200 px-3 py-1 rounded-full text-sm text-gray-800"

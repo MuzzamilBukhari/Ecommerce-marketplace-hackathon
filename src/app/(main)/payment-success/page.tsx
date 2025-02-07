@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/Button";
 import Line from "@/components/ui/Line";
 import { useCart } from "@/context/cartContext";
 import { useForm } from "@/context/formDataContext";
+import { useAuth } from "@clerk/nextjs";
 import { useRouter } from "next/navigation";
 import { FormEvent, useState } from "react";
 import { AiOutlineLoading3Quarters } from "react-icons/ai";
@@ -15,6 +16,7 @@ export default function PaymentSuccess({
   searchParams: { amount: string };
 }) {
   const { formData } = useForm();
+  const { userId } = useAuth();
   const { submitOrder } = useCart();
   const router = useRouter();
   const [loading, setLoading] = useState(false);
@@ -22,7 +24,10 @@ export default function PaymentSuccess({
     e.preventDefault();
     setLoading(true);
     try {
-      const result = await submitOrder(formData, "online-payment");
+      if (!userId) {
+        throw new Error("User ID is missing");
+      }
+      const result = await submitOrder(formData, "online-payment", userId);
 
       if (result.success && result.orderId) {
         router.push(`/order-confirmation/${result.orderId}`);

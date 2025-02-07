@@ -16,6 +16,7 @@ import { discountedPrice } from "@/myFunctions/discountedPrice";
 import Loader from "@/components/ui/Loader";
 
 const ProductPage = ({ params }: { params: { product: string } }) => {
+  const [loading, setLoading] = useState(false)
   const { products, setProducts } = useProducts();
   const { setCategories } = useCategories();
   const productSlug = params.product;
@@ -25,9 +26,10 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
 
   useEffect(() => {
     (async function () {
+      setLoading(true);
       try {
         let query = await client.fetch(
-          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, 'image':image.asset->url, sizes, bestSelling}`
+          `*[_type == "products"]{_id, _createdAt, name, description, 'category':category->name, price, discountPercent, colors , 'image':image.asset->url, sizes, stock, bestSelling}`
         );
 
         const productsArr: Product[] = query.map((product: any) => {
@@ -44,9 +46,11 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
         setCategories(query);
       } catch (error) {
         throw new Error("Error in fetch");
+      } finally {
+        setLoading(false);
       }
     })();
-  }, [setCategories, setProducts]);
+  }, [setCategories, setProducts]);;
   const isProductInWishlist = wishlist.some(
     (item: any) => item.slug === productSlug
   );
@@ -116,14 +120,12 @@ const ProductPage = ({ params }: { params: { product: string } }) => {
             <div className="flex items-center gap-5 mt-5">
               <button
                 onClick={handleWishlist}
-                className={`flex items-center gap-2 ${
-                  isWishlisted ? "text-myHeading" : "text-white"
-                } bg-myGry font-semibold py-2 px-6 focus:outline-none hover:scale-105 duration-200 rounded`}
+                className={`flex items-center gap-2 ${isWishlisted ? "text-myHeading" : "text-white"
+                  } bg-myGry font-semibold py-2 px-6 focus:outline-none hover:scale-105 duration-200 rounded`}
               >
                 <FaHeart
-                  className={`w-6 h-6 transition-transform duration-200 ${
-                    isWishlisted ? "text-myHeading" : "text-white"
-                  }`}
+                  className={`w-6 h-6 transition-transform duration-200 ${isWishlisted ? "text-myHeading" : "text-white"
+                    }`}
                 />
                 {isWishlisted ? "Remove from Wishlist" : "Add to Wishlist"}
               </button>

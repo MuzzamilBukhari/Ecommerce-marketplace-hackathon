@@ -12,7 +12,6 @@ import { client } from "@/sanity/lib/client";
 import FilterComponent from "@/components/product-list-page/FilterComponent";
 import { FilterState } from "@/types/FilterTypes";
 import Loader from "@/components/ui/Loader";
-import PageHeader from "@/components/ui/PageHeader";
 import { MdChevronRight } from "react-icons/md";
 
 const ShopPage = () => {
@@ -25,7 +24,7 @@ const ShopPage = () => {
       setLoading(true);
       try {
         let query = await client.fetch(
-          `*[_type == "products"]{_id, _createdAt, name, description, category, price, discountPercent, 'image':image.asset->url, sizes, bestSelling}`
+          `*[_type == "products"]{_id, _createdAt, name, description, 'category':category->name, price, discountPercent, colors , 'image':image.asset->url, sizes, stock, bestSelling}`
         );
 
         const productsArr: Product[] = query.map((product: any) => {
@@ -46,7 +45,7 @@ const ShopPage = () => {
         setLoading(false);
       }
     })();
-  }, [setProducts, setCategories]);
+  }, [setCategories, setProducts]);;
 
   const handleFilterChange = (newFilters: FilterState) => {
     let filteredProducts = [...products];
@@ -163,3 +162,4 @@ const ShopPage = () => {
 };
 
 export default ShopPage;
+

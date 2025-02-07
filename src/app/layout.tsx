@@ -31,6 +31,8 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  console.log("SANITY PROJECT ID:", process.env.NEXT_PUBLIC_SANITY_PROJECT_ID);
+
   return (
     <ClerkProvider afterSignOutUrl={"/sign-in"}>
       <html lang="en">
@@ -41,18 +43,10 @@ export default function RootLayout({
                 <CategoryProvider>
                   <ProductsProvider>
                     <WishlistProvider>
-                      <div className="w-full fixed top-0 left-0 z-10">
-                        <Header />
-                        <Navbar />
-                      </div>
-                      <SignedOut>
-                        <SignInButton />
-                      </SignedOut>
-                      <SignedIn>
-                        <UserButton />
-                      </SignedIn>
+
+
                       {children}
-                      <Footer />
+
                     </WishlistProvider>
                   </ProductsProvider>
                 </CategoryProvider>

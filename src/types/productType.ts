@@ -8,6 +8,7 @@ export interface Product {
   discountPercent: number;
   image: string;
   sizes: string[];
+  colors?: string[];
   bestSelling: boolean;
   stock: number;
   _createdAt: string;

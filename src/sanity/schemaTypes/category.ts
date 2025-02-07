@@ -39,7 +39,7 @@ export const category = {
       type: "image",
       title: "Category Image",
       options: {
-        hotspot: true, // Enables cropping and focal point selection
+        hotspot: true,
       },
     },
   ],

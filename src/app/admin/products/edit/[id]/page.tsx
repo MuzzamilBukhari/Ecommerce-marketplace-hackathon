@@ -27,7 +27,7 @@ export default async function EditProductPage({
 }) {
   // Fetch product data from Sanity
   const product = await client.fetch(
-    `*[_type == "product" && _id == $id][0] {
+    `*[_type == "products" && _id == $id][0] {
       _id,
       name,
       description,

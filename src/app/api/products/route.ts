@@ -22,7 +22,7 @@ export async function POST(request: Request) {
   // }
   // Create a new product in Sanity
   const product = await writeClient.create({
-    _type: "product",
+    _type: "products",
     name,
     description,
     price,

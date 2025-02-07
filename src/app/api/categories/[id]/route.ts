@@ -1,5 +1,5 @@
 import { writeClient } from "@/sanity/lib/writeClient";
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 
 export async function PUT(
   request: Request,
@@ -37,12 +37,12 @@ export async function PUT(
         tags,
         image: image
           ? {
-              _type: "image",
-              asset: {
-                _type: "reference",
-                _ref: image.asset._ref,
-              },
-            }
+            _type: "image",
+            asset: {
+              _type: "reference",
+              _ref: image.asset._ref,
+            },
+          }
           : null,
       })
       .commit();

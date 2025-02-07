@@ -2,7 +2,7 @@
 
 import { Suspense } from "react";
 import SearchParams from "@/components/search/SearchParams";
-import { Link } from "lucide-react";
+import Link from "next/link";
 import { MdChevronRight } from "react-icons/md";
 const SearchPage = () => {
   return (

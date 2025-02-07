@@ -29,7 +29,7 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       const data = await client.fetch(`
-        *[_type == "product"] {
+        *[_type == "products"] {
           _id, _createdAt, name, description, 'category':category->name, price, discountPercent,
           'image':image.asset->url, sizes, colors, bestSelling, stock
         }
@@ -70,7 +70,7 @@ export default function ProductsPage() {
       </div>
 
       <div className="flex flex-col gap-6">
-        {filteredProducts.map((product) => (
+        {filteredProducts?.map((product) => (
           <div key={product._id} className="bg-white p-6 rounded-lg shadow flex items-center">
             <Image
               src={product.image}

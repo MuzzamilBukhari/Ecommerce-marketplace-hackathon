@@ -16,7 +16,7 @@ export default async function SalesPage() {
     *[_type == "order" && status == "completed"] | order(_createdAt desc) {
       _id,
       total,
-      createdAt,
+      _createdAt,
       "items": items[]{
       quantity,
       price,
@@ -50,8 +50,8 @@ export default async function SalesPage() {
               <h3 className="font-medium">Products Sold:</h3>
               <ul className="list-disc pl-6">
                 {sale.items.map((item) => (
-                  <li key={item.product.name}>
-                    {item.product.name} (x{item.quantity})
+                  <li key={item.product?.name}>
+                    {item.product?.name} (x{item.quantity})
                   </li>
                 ))}
               </ul>

@@ -67,7 +67,7 @@ export default async function AdminDashboard() {
   const metrics: Metric[] = [
     {
       title: "Total Revenue",
-      value: `$${totalRevenue.toLocaleString()}`,
+      value: `$${totalRevenue}`,
       icon: <DollarSign size={24} />,
     },
     {

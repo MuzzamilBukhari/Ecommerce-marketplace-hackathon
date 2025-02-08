@@ -6,6 +6,7 @@ import { writeClient } from "@/sanity/lib/writeClient";
 import { client } from "@/sanity/lib/client";
 import { Plus, Trash } from "lucide-react";
 import Image from "next/image";
+import Loader from "@/components/ui/Loader";
 
 interface ProductFormProps {
   initialData?: {
@@ -35,6 +36,7 @@ export default function ProductForm({ initialData }: ProductFormProps) {
     []
   );
   const [editImg, setEditImg] = useState("");
+  const [loading, setLoading] = useState(false)
   const [imagePreview, setImagePreview] = useState<string | null>(null);
   const [isUploading, setIsUploading] = useState(false);
   const [formData, setFormData] = useState({
@@ -104,6 +106,7 @@ export default function ProductForm({ initialData }: ProductFormProps) {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setError(null);
+    setLoading(true)
 
     // Validation
     if (!formData.name || !formData.category || formData.price <= 0) {
@@ -130,6 +133,8 @@ export default function ProductForm({ initialData }: ProductFormProps) {
       router.push("/admin/products");
     } catch (err) {
       setError(err instanceof Error ? err.message : "Something went wrong.");
+    } finally{
+      setLoading(false)
     }
   };
 
@@ -163,6 +168,7 @@ export default function ProductForm({ initialData }: ProductFormProps) {
     return `https://cdn.sanity.io/images/${process.env.NEXT_PUBLIC_SANITY_PROJECT_ID}/${process.env.NEXT_PUBLIC_SANITY_DATASET}/${imageId}.${extension}`;
   };
 
+  if (loading) return <Loader />
   return (
     <form onSubmit={handleSubmit} className="space-y-4">
       {error && <div className="text-red-500">{error}</div>}

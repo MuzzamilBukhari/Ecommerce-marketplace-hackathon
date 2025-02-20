@@ -1,16 +1,23 @@
-import React from "react";
-import { useWishlist } from "@/context/wishlistContext";
-import { Product } from "@/types/productType";
-import WishlistCard from "./WishlistCard";
-const Wishlist = () => {
-  const { wishlist } = useWishlist();
-  return (
-    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-      {wishlist.map((product: Product) => (
-        <WishlistCard key={product._id} product={product} />
-      ))}
-    </div>
-  );
-};
+import { useWishlist } from '@/context/wishlistContext';
+import { useRouter } from 'next/navigation';
+import React from 'react'
+import { Button } from '../ui/Button';
+import EmptyCard from '../ui/EmptyCard';
+import WishlistSection from './WishlistSection';
 
-export default Wishlist;
+const Wishlist = () => {
+    const router = useRouter();
+  const { wishlist } = useWishlist();
+
+  return (
+   <div>
+     {wishlist.length > 0 ? (
+          <WishlistSection />
+        ) : 
+        <EmptyCard title='Wishlist'/>
+        }
+   </div>
+  )
+}
+
+export default Wishlist

@@ -1,6 +1,10 @@
 import { SignUp } from "@clerk/nextjs";
 import Image from "next/image";
 
+export const metadata = {
+  title: "Signup ",
+};
+
 export default function Page() {
   return (
     <div className="max-w-[1280px] m-auto min-h-[70vh] p-3 pt-28 pb-20">

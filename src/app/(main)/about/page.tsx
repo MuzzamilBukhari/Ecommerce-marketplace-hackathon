@@ -3,6 +3,10 @@ import React from "react";
 import Image from "next/image";
 import { FaBuilding, FaIndustry, FaHandHoldingUsd } from "react-icons/fa";
 
+export const metadata = {
+  title: "About",
+};
+
 const page = () => {
   return (
     <div className="bg-white text-myHeading">

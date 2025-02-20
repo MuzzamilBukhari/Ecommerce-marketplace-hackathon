@@ -12,7 +12,10 @@ import { ToastProvider } from "@/components/toast/ToastNotifications";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Shoeway",
+  title: {
+    template: "%s - Shoeway",
+    default: "Shoeway",
+  },
   description: "E-commerce Marketplace",
   icons: {
     icon: "/favicon.ico",
@@ -33,15 +36,7 @@ export default function RootLayout({
               <CartItemProvier>
                 <CategoryProvider>
                   <ProductsProvider>
-                    <WishlistProvider>
-                      {/* <SignedOut>
-                        <SignInButton />
-                      </SignedOut> */}
-                      {/* <SignedIn>
-                        <UserButton />
-                      </SignedIn> */}
-                      {children}
-                    </WishlistProvider>
+                    <WishlistProvider>{children}</WishlistProvider>
                   </ProductsProvider>
                 </CategoryProvider>
               </CartItemProvier>

@@ -1,13 +1,13 @@
-"use client";
 import Checkout from "@/components/checkout/Checkout";
 import Link from "next/link";
 import Image from "next/image";
-import { useCart } from "@/context/cartContext";
-import CartCard from "@/components/cart/CartCard";
-import { CartItem } from "@/types/cartType";
+import Summary from "@/components/checkout/Summary";
+
+export const metadata = {
+  title: "Checkout",
+};
 
 export default function CheckoutPage() {
-  const { cartItems, cartTotal } = useCart();
   return (
     <section className="flex justify-center items-center flex-col pt-40 text-black bg-white ">
       <div className="w-full mx-auto px-4">
@@ -46,34 +46,7 @@ export default function CheckoutPage() {
             <Checkout />
           </div>
           {/* Checkout Form */}
-          {/* Summary Section */}
-          <div className="">
-            <div>
-              {cartItems.map((item: CartItem) => (
-                <CartCard key={item._id} item={item} isCheckout={true} />
-              ))}
-            </div>
-            <div>
-              {cartItems && (
-                <div className="text-[#111111]">
-                  <h4 className="text-2xl font-medium">Summary</h4>
-                  <div className="mt-3 text-[15px]">
-                    <div className="flex justify-between">
-                      Subtotal <span className="font-medium">${cartTotal}</span>
-                    </div>
-                    <div className="flex justify-between gap-2">
-                      Estimated Delivery & Handling{" "}
-                      <span className="font-medium">Free</span>
-                    </div>
-                    <div className="flex justify-between my-2 py-3 border-y border-[#E5E5E5]">
-                      <span>Total</span>{" "}
-                      <span className="font-medium">${cartTotal}</span>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-          </div>
+          <Summary />
         </div>
         <hr className="border-t-2 border-myGry my-6 mx-6" />
       </div>

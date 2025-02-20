@@ -1,5 +1,4 @@
 import React from "react";
-import Image from "next/image";
 import TeamCard from "../aboutpage/TeamCard";
 import PageHeader from "../ui/PageHeader";
 import TrialSection from "../ui/TrialSection";

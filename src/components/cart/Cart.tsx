@@ -1,12 +1,14 @@
+"use client"
 import { useCart } from "@/context/cartContext";
 import { CartItem } from "@/types/cartType";
 import Link from "next/link";
 import React from "react";
 import CartCard from "./CartCard";
+import EmptyCard from "../ui/EmptyCard";
 
 const Cart = () => {
   const { cartItems, cartTotal } = useCart();
-  return (
+  return cartItems.length ? (
     <div className="bg-[#fafafa] py-24 w-[90%] mx-auto flex flex-col md:flex-row justify-center items-center gap-12 md:gap-12 lg:gap-36 xl:gap-48">
       {/* cart items */}
       <div className="flex justify-center items-center flex-col gap-6">
@@ -41,7 +43,7 @@ const Cart = () => {
         </div>
       )}
     </div>
-  );
+  ) : <EmptyCard title="Cart"/>
 };
 
 export default Cart;

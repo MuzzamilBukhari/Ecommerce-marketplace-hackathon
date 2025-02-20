@@ -6,6 +6,10 @@ import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
 
+export const metadata = {
+  title: "Profile",
+};
+
 const AccountPage = async () => {
   const { userId } = await auth();
 

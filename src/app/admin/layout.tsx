@@ -2,10 +2,14 @@ import { redirect } from "next/navigation";
 import { checkAdmin } from "@/utils/roles";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
+import { generateMetaData } from "../layout";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
+
+export const metadata = generateMetaData("Admin"); 
+
 
 export default async function AdminLayout({ children }: AdminLayoutProps) {
   const isAdmin = await checkAdmin();

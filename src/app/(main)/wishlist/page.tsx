@@ -7,6 +7,8 @@ export const metadata = {
   title: "Wishlist",
 };
 
+export const dynamic = "force-dynamic";
+
 const WishlistPage = () => {
   
   return (

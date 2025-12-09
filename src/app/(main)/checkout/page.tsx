@@ -7,6 +7,8 @@ export const metadata = {
   title: "Checkout",
 };
 
+export const dynamic = "force-dynamic";
+
 export default function CheckoutPage() {
   return (
     <section className="flex justify-center items-center flex-col pt-40 text-black bg-white ">

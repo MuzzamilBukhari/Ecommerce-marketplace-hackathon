@@ -1,3 +1,5 @@
+"use client";
+
 import React from "react";
 import { useWishlist } from "@/context/wishlistContext";
 import { Product } from "@/types/productType";

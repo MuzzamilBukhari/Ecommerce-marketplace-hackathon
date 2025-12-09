@@ -2,13 +2,16 @@ import { redirect } from "next/navigation";
 import { checkAdmin } from "@/utils/roles";
 import Link from "next/link";
 import { ArrowLeft } from "lucide-react";
-import { generateMetaData } from "../layout";
+import { Metadata } from "next";
 
 interface AdminLayoutProps {
   children: React.ReactNode;
 }
 
-export const metadata = generateMetaData("Admin"); 
+export const metadata: Metadata = {
+  title: "Admin",
+  description: "Admin Dashboard for Shoeway E-commerce",
+}; 
 
 
 export default async function AdminLayout({ children }: AdminLayoutProps) {

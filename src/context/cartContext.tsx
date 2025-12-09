@@ -8,7 +8,6 @@ import {
   useState,
 } from "react";
 import { Product } from "@/types/productType";
-import { writeClient } from "@/sanity/lib/writeClient";
 import { discountedPrice } from "@/myFunctions/discountedPrice";
 import {
   showAddToCartToast,
@@ -139,81 +138,56 @@ export const CartItemProvier = ({ children }: { children: ReactNode }) => {
           return true;
         })
       );
-      // let order;
-      // if (user) {
-      //   const customer = await client.fetch(
-      //     *[_type == "customer" && email == $email][0]._id,
-      //     { email: user.primaryEmailAddress?.emailAddress }
-      //   );
-      //   order = await createOrder(
-      //     {
-      //       items: cartItems,
-      //       totalAmount: cartTotal,
-      //       paymentMethod,
-      //       phone: formData.phone,
-      //       street: formData.address,
-      //       apartment: formData.apartment,
-      //       city: formData.city,
-      //       postalCode: formData.postalCode,
-      //     },
-      //     customer
-      //   );
-      // }
 
-      // Create customer document
-      const customer = await writeClient.create({
-        _type: "customer",
-        clerkId: userId,
-        firstName: formData.firstName,
-        lastName: formData.lastName,
-        email: formData.email,
-        phone: formData.phone,
-        address: {
-          street: formData.address,
-          apartment: formData.apartment,
-          city: formData.city,
-          postalCode: formData.postalCode,
+      // Call server-side API to create order
+      const response = await fetch("/api/create-order", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
         },
-      });
-
-      // Create order document
-      const order = await writeClient.create({
-        _type: "order",
-        orderNumber: ` SW-${Date.now()}`,
-        customer: {
-          _type: "reference",
-          _ref: customer._id,
-        },
-        items: cartItems.map((item) => ({
-          _key: item._id,
-          _type: "object",
-          products: {
-            _type: "reference",
-            _ref: item._id,
+        body: JSON.stringify({
+          customer: {
+            clerkId: userId,
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phone: formData.phone,
+            address: {
+              street: formData.address,
+              apartment: formData.apartment,
+              city: formData.city,
+              postalCode: formData.postalCode,
+            },
           },
-          quantity: item.cartQuantity, // This is the quantity ordered
-          price: item.price,
-        })),
-        total: cartTotal,
-        status: "pending",
-        paymentMethod,
+          orderData: {
+            items: cartItems.map((item) => ({
+              _key: item._id,
+              _type: "object",
+              products: {
+                _type: "reference",
+                _ref: item._id,
+              },
+              quantity: item.cartQuantity,
+              price: item.price,
+            })),
+            total: cartTotal,
+            status: "pending",
+            paymentMethod,
+          },
+          cartItems: cartItems,
+        }),
       });
 
-      // Update inventory for each product
-      await Promise.all(
-        cartItems.map(
-          async (item) =>
-            await writeClient
-              .patch(item._id)
-              .dec({ stock: item.cartQuantity }) // Decrease the stock by cart quantity
-              .commit()
-        )
-      );
+      const result = await response.json();
 
-      // Clear the cart
+      if (!result.success) {
+        throw new Error(result.error || "Failed to create order");
+      }
+
+      // Clear the cart on success
       clearCart();
 
-      return { success: true, orderId: order?._id };
+      return { success: true, orderId: result.orderId };
     } catch (error) {
       console.error("Error submitting order:", error);
       return {
